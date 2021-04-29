@@ -67,7 +67,7 @@ public class KhachHangDAO {
         con.executeUpdate(sql);
     }
 
-    public void delete(String MaKH) {
+    public void delete(int MaKH) {
         String sql = "DELETE FROM KHACHHANG WHERE MAKH='" + MaKH + "'";
         con.executeUpdate(sql);
         

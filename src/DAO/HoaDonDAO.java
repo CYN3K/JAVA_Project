@@ -85,7 +85,7 @@ public class HoaDonDAO {
        
         con.executeUpdate(sql);
     }
-    public void delete(String MaHD)
+    public void delete(int MaHD)
     {
         
         String sql = "DELETE FROM hoadon WHERE MAHD='"+MaHD+"'";

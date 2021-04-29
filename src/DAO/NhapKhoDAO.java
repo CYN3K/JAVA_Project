@@ -70,7 +70,7 @@ public class NhapKhoDAO {
         con.executeUpdate(sql);
     }
 
-    public void delete(String a) {
+    public void delete(int a) {
         String sql = "DELETE FROM NHAPKHO WHERE MANK='" + a + "'";
         con.executeUpdate(sql);
 

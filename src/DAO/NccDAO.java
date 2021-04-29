@@ -72,7 +72,7 @@ public class NccDAO {
         con.executeUpdate(sql);
     }
 
-    public void delete(String a) {
+    public void delete(int a) {
         String sql = "DELETE FROM NCC WHERE MANCC='" + a + "'";
         con.executeUpdate(sql);
 

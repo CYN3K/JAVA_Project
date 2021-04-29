@@ -88,19 +88,11 @@ public class TaiKhoanDAO {
 
     }
 
-    public void delete(String usererID) {
+    public void delete(int usererID) {
         String sql = "DELETE FROM TAIKHOAN WHERE ID='" + usererID + "'";
         con.executeUpdate(sql);
 
     }
 
-    public static void main(String[] args) throws SQLException {
-        TaiKhoanDAO a = new TaiKhoanDAO();
-        TaiKhoanDTO c = new TaiKhoanDTO(5, "NV001", "nv007", "NV", 0);
-        //a.add(c);
-        //a.delete("5");
-        a.set(c);
-        //System.out.println(a.list());
-
-    }
+    
 }

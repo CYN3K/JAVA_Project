@@ -5,63 +5,59 @@
  */
 package BUS;
 
-import DAO.CTXuatDAO;
+import DAO.HoaDonDAO;
 import DAO.SqlServerConnect;
-import DTO.CTXuatDTO;
+import DTO.HoaDonDTO;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-public class CTXuatBUS {
-     ArrayList<CTXuatDTO> listCTXuat;
+
+public class HoaDonBUS {
+
+    ArrayList<HoaDonDTO> listCTXuat;
     private SqlServerConnect con = new SqlServerConnect();
 
-    public CTXuatBUS() {
+    public HoaDonBUS() {
     }
-   public void list()
-    {
-        CTXuatDAO loaiDAO = new  CTXuatDAO();
-        listCTXuat= new ArrayList<>();
-        listCTXuat = loaiDAO.list();
-    }
-    public void add(CTXuatDTO a) throws SQLException
+    public void add(HoaDonDTO a) throws SQLException
     {
         listCTXuat.add(a);
-        CTXuatDAO loaiDAO = new  CTXuatDAO();
+        HoaDonDAO loaiDAO = new  HoaDonDAO();
         loaiDAO.add(a);
     }
 
     public void delete(int idChiTietHD)
     {
-        for(CTXuatDTO i : listCTXuat )
+        for(HoaDonDTO i : listCTXuat )
         {
-            if(i.getMaXK()==idChiTietHD)
+            if(i.getMaHD()==idChiTietHD)
             {
                 listCTXuat.remove(i);
-                CTXuatDAO loaiDAO = new  CTXuatDAO();
+                HoaDonDAO loaiDAO = new  HoaDonDAO();
                 loaiDAO.delete(idChiTietHD);
                 return;
             }
         }
     }
     
-    public void set(CTXuatDTO s)
+    public void set(HoaDonDTO s)
     {
         for(int i = 0 ; i < listCTXuat.size() ; i++)
         {
-            if(listCTXuat.get(i).getMaXK()==s.getMaXK())
+            if(listCTXuat.get(i).getMaHD()==s.getMaHD())
             {
                 listCTXuat.set(i, s);
                 return;
             }
         }
     }
-    public CTXuatDTO search(int maHD)
+    public HoaDonDTO search(int maHD)
     {
-        for(CTXuatDTO ct : listCTXuat)
+        for(HoaDonDTO ct : listCTXuat)
         {
-            if( ct.getMaXK()==maHD)
+            if( ct.getMaHD()==maHD)
             {
                 return ct;
             }
@@ -80,29 +76,30 @@ public class CTXuatBUS {
         if(maNK.isEmpty()) return null;
         ArrayList<Integer> s = new ArrayList<>();
        
-        for(CTXuatDTO ct : listCTXuat)
+        for(HoaDonDTO ct : listCTXuat)
         {
-            if(ct.getMaSP().equals(maNK))
+            if(ct.getMaNV().equals(maNK))
             {
-                s.add(ct.getMaXK());
+                s.add(ct.getMaHD());
             }
         }
         return s;
     }
-    public ArrayList<CTXuatDTO> listCTXuat(int maXK)
+    public ArrayList<HoaDonDTO> listCTXuat(int maXK)
     {
-        ArrayList<CTXuatDTO> ds = new ArrayList<>();
-        for(CTXuatDTO ct : listCTXuat)
+        ArrayList<HoaDonDTO> ds = new ArrayList<>();
+        for(HoaDonDTO ct : listCTXuat)
         {
-            if( ct.getMaXK()==(maXK))
+            if( ct.getMaHD()==(maXK))
             {
                 ds.add(ct);
             }
         }
         return ds; 
     }
-    public ArrayList<CTXuatDTO> getList() {
+    public ArrayList<HoaDonDTO> getList() {
         return listCTXuat;
     }
    
 }
+

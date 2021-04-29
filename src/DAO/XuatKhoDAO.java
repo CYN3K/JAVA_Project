@@ -65,7 +65,7 @@ public class XuatKhoDAO {
         con.executeUpdate(sql);
     }
 
-    public void delete(String a) {
+    public void delete(int a) {
         String sql = "DELETE FROM XUATKHO WHERE MAXK='" + a + "'";
         con.executeUpdate(sql);
 
