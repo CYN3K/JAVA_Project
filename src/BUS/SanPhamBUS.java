@@ -45,9 +45,13 @@ public class SanPhamBUS {
     }
 
     public void set(SanPhamDTO s) {
-        for (int i = 0; i < listSP.size(); i++) {
-            if (listSP.get(i).getMaSP().equals(s.getMaSP())) {
+        for(int i = 0 ; i < listSP.size() ; i++)
+        {
+            if(listSP.get(i).getMaSP().equals(s.getMaSP()))
+            {
                 listSP.set(i, s);
+                SanPhamDAO spDAO = new SanPhamDAO();
+                spDAO.set(s);
                 return;
             }
         }
@@ -62,12 +66,22 @@ public class SanPhamBUS {
         return null;
     }
 
-    public void search1(int maNV) throws SQLException {
-        String sql = "select * from CT_NHAP where SANPHAM like'%" + maNV + "%'";
+    public ResultSet search1(String maNV) throws SQLException {
+        String sql = "select * from SANPHAM where MASP like'%" + maNV + "%'";
         ResultSet rs = con.executeQuery(sql);
-
+        return rs;
     }
-
+    public boolean checkMasp(String masp)
+    {
+        for(SanPhamDTO sp : listSP)
+        {
+            if(sp.getMaSP().equals(masp))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
     public ArrayList<String> getCTLoai(String ncc) {
         if (ncc.isEmpty()) {
             return null;

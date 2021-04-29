@@ -66,12 +66,11 @@ public class SanPhamDAO {
         sql += "MASP='" + a.getMaSP() + "', ";
         sql += "TENSP='" + a.getTenSP() + "' ,";
         sql += "GIABAN='" + a.getGiaban() + "', ";
-          sql += "SOLUONG='" + a.getSoluong() + "', ";
+        sql += "SOLUONG='" + a.getSoluong() + "', ";
         sql += "DVT='" + a.getDvt() + "' ,";
         sql += "NSX='" + a.getNsx() + "', ";
         sql += "MALOAI='" + a.getMaloai() + "' ";
         sql += " WHERE MASP='" + a.getMaSP() + "'";
-
         con.executeUpdate(sql);
     }
 
@@ -80,6 +79,7 @@ public class SanPhamDAO {
         con.executeUpdate(sql);
 
     }
+   
 }
 
 
