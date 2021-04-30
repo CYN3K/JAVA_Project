@@ -30,7 +30,6 @@ public class NccDAO {
 
             String sql = "SELECT * FROM NCC";
             ResultSet rs = con.executeQuery(sql);
-            //(int maNCC, String tenNCC, String diachi, String sdt) 
             while (rs.next()) {
                 int maNcc = rs.getInt("MANCC");
                 String tenNcc = rs.getString("TENNCC");
@@ -44,7 +43,7 @@ public class NccDAO {
             con.disConnect();
 
         } catch (SQLException ex) {
-            Logger.getLogger(LoaiDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(NccDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return dsncc;

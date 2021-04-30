@@ -30,6 +30,7 @@ public class NhanVienDAO {
                 String ngaysinh = rs.getString("NGAYSINH");
                 String sdt = rs.getString("SDT");
                 Double luong = rs.getDouble("LUONG");
+                
                 NhanVienDTO n = new NhanVienDTO(maNV, tenNV,diachi,ngaysinh,sdt,luong);
                 dsnv.add(n);
             }
@@ -37,7 +38,7 @@ public class NhanVienDAO {
             con.disConnect();
 
         } catch (SQLException ex) {
-            Logger.getLogger(LoaiDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(NhanVienDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return dsnv;
@@ -74,6 +75,7 @@ public class NhanVienDAO {
         con.executeUpdate(sql);
 
     }
+    
 }
 
 

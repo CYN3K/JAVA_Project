@@ -27,7 +27,7 @@ public class HoaDonDAO {
         ArrayList<HoaDonDTO> dshd = new ArrayList<>();
         try {
            
-            String sql = "SELECT * FROM HOADON WHERE 1";
+            String sql = "SELECT * FROM HOADON";
             ResultSet rs = con.executeQuery(sql);
             while(rs.next())
             {
@@ -48,13 +48,12 @@ public class HoaDonDAO {
             con.disConnect();
             
         } catch (SQLException ex) {
-            Logger.getLogger(NhanVienDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(HoaDonDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         return dshd;
     }
     public void add(HoaDonDTO hd) {   
-        //(maHD, maKH, ngayLap, gioLap, maKM ,maNV,tongtien,chietkhau,thanhtoan);
         String sql = "INSERT INTO HOADON VALUES (";
                sql += "'"+hd.getMaHD()+"',";
                sql += ""+hd.getMaKH()+",";
@@ -65,13 +64,10 @@ public class HoaDonDAO {
                sql += "'"+hd.getTongtien()+"',";
                sql += "'"+hd.getChietkhau()+"',";
                sql += "'"+hd.getThanhtoan()+"')";
-        System.out.println(sql);
         con.executeUpdate(sql);
     }
     public void set(HoaDonDTO hd)
     {
-        
-        
         String sql = "UPDATE HOADON SET ";
             sql += "'"+hd.getMaHD()+"',";
                sql += ""+hd.getMaKH()+",";

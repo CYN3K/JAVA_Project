@@ -53,7 +53,7 @@ public class NhanVienBUS {
         }
     }
 
-    public NhanVienDTO search(int maHD) {
+    public NhanVienDTO search(String maHD) {
         for (NhanVienDTO ct : listNV) {
             if (ct.getMaNV().equals(maHD)) {
                 return ct;
@@ -62,8 +62,8 @@ public class NhanVienBUS {
         return null;
     }
 
-    public void search1(int maHD) throws SQLException {
-        String sql = "select * from CT_NHAP where NHANVIEN like'%" + maHD + "%'";
+    public void search1(String maHD) throws SQLException {
+        String sql = "select * from NHANVIEN where MANV like'%" + maHD + "%'";
         ResultSet rs = con.executeQuery(sql);
 
     }

@@ -23,15 +23,12 @@ public class TaiKhoanBUS {
 
     public void list() {
         TaiKhoanDAO TaiKhoanDAO = new TaiKhoanDAO();
-        listTK
-                = new ArrayList<>();
-        listTK
-                = TaiKhoanDAO.list();
+        listTK = new ArrayList<>();
+        listTK = TaiKhoanDAO.list();
     }
 
     public void add(TaiKhoanDTO a) throws SQLException {
-        listTK
-                .add(a);
+        listTK.add(a);
         TaiKhoanDAO TaiKhoanDAO = new TaiKhoanDAO();
         TaiKhoanDAO.add(a);
     }
@@ -67,7 +64,7 @@ public class TaiKhoanBUS {
     }
 
     public void search1(int maNV) throws SQLException {
-        String sql = "select * from CT_NHAP where TAIKHOAN like'%" + maNV + "%'";
+        String sql = "select * from TAIKHOAN where ID like'%" + maNV + "%'";
         ResultSet rs = con.executeQuery(sql);
 
     }

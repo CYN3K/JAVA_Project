@@ -70,7 +70,7 @@ public class NccBUS {
     }
     public void search1(int maHD) throws SQLException
     {
-        String sql = "select * from CT_NHAP where NCC like'%" +maHD +"%'";
+        String sql = "select * from NCC where MANCC like'%" +maHD +"%'";
         ResultSet rs = con.executeQuery(sql);
        
     }

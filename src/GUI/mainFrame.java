@@ -24,16 +24,18 @@ public class mainFrame extends javax.swing.JFrame {
     String[] header = new String[]{"ID", "NAME", "GIABAN", "SOLUONG", "DVT", "NSX", "IDLOAI"};
     DefaultTableModel model = new DefaultTableModel(header, 0);
     private SanPhamBUS spBUS = new SanPhamBUS();
-
+    
     ArrayList<SanPhamDTO> sp;
 
     public mainFrame() {
+        
         initComponents();
         tableSP.setModel(model);
+        
         listSP();
-
+        
     }
-
+    
     public void listSP() {
         if (spBUS.getList() == null) {
             spBUS.list();
@@ -213,8 +215,8 @@ public class mainFrame extends javax.swing.JFrame {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(tbSP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
                         .addGap(29, 29, 29))))
         );
         layout.setVerticalGroup(
@@ -232,7 +234,7 @@ public class mainFrame extends javax.swing.JFrame {
                 .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(tbSP, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(168, Short.MAX_VALUE))
         );
 
@@ -252,6 +254,7 @@ public class mainFrame extends javax.swing.JFrame {
         if (i == 0) {
             spBUS.delete(idcanxoa);
             tableSP.clearSelection();
+            loadSanPham(sp);
 
         }
     }//GEN-LAST:event_btnXoaActionPerformed
@@ -290,8 +293,8 @@ public class mainFrame extends javax.swing.JFrame {
         int row = tableSP.getSelectedRow();
         txtId.setText(getData(row, 0));
         txtName.setText(getData(row, 1));
-        txtSoLuong.setText(getData(row, 2));
-        txtGiaban.setText(getData(row, 3));
+        txtSoLuong.setText(getData(row, 3));
+        txtGiaban.setText(getData(row, 2));
         txtDvt.setText(getData(row, 4));
         cbNsx.setSelectedItem(getData(row, 5));
         cbIdloai.setSelectedItem(getData(row, 6));

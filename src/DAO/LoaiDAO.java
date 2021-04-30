@@ -41,7 +41,7 @@ public class LoaiDAO {
     }
 
     public void add(LoaiDTO a) {
-        String sql = "INSERT INTO KHUYENMAI VALUES (";
+        String sql = "INSERT INTO LOAI VALUES (";
         sql += "'" + a.getMaLoai()+ "',";
         sql += "'" + a.getTenLoai() + "')";
         con.executeUpdate(sql);
@@ -50,7 +50,7 @@ public class LoaiDAO {
 
     public void set(LoaiDTO a) {
 
-        String sql = "UPDATE KHUYENMAI SET ";
+        String sql = "UPDATE LOAI SET ";
         sql += "MALOAI='" + a.getMaLoai() + "', ";
         sql += "GIAMGIA='" + a.getTenLoai() + "' ";
         sql += " WHERE MALOAI='" + a.getMaLoai() + "'";
@@ -59,7 +59,7 @@ public class LoaiDAO {
     }
 
     public void delete(String a) {
-        String sql = "DELETE FROM KHUYENMAI WHERE MALOAI='" + a + "'";
+        String sql = "DELETE FROM LOAI WHERE MALOAI='" + a + "'";
         con.executeUpdate(sql);
 
     }

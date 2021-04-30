@@ -16,28 +16,28 @@ public class XuatKhoDAO {
 
     public XuatKhoDAO() {
     }
-  private SqlServerConnect con = new SqlServerConnect();
+    private SqlServerConnect con = new SqlServerConnect();
+
     public ArrayList<XuatKhoDTO> list() {
         ArrayList<XuatKhoDTO> dsxk = new ArrayList<>();
         try {
 
             String sql = "SELECT * FROM XUATKHO";
             ResultSet rs = con.executeQuery(sql);
-            //(int maXK, String ngayXK, String gioXK, String maNV) 
             while (rs.next()) {
                 int maXK = rs.getInt("MAXK");
                 String ngayXK = rs.getString("NGAYXK");
                 String gioXK = rs.getString("GIOXK");
-                String maNV = rs.getString("maNV");
+                String maNV = rs.getString("MANV");
 
-                XuatKhoDTO n = new XuatKhoDTO(maXK, ngayXK,gioXK,maNV);
+                XuatKhoDTO n = new XuatKhoDTO(maXK, ngayXK, gioXK, maNV);
                 dsxk.add(n);
             }
             rs.close();
             con.disConnect();
 
         } catch (SQLException ex) {
-            Logger.getLogger(LoaiDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(XuatKhoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return dsxk;
@@ -56,7 +56,7 @@ public class XuatKhoDAO {
     public void set(XuatKhoDTO a) {
 
         String sql = "UPDATE XUATKHO SET ";
-        sql += "MAXK='" + a.getGioXK() + "', ";
+        sql += "MAXK='" + a.getMaXK() + "', ";
         sql += "NGAYXUAT='" + a.getNgayXK() + "' ,";
         sql += "GIOXUAT='" + a.getGioXK() + "', ";
         sql += "MANV='" + a.getMaNV() + "' ";

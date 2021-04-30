@@ -9,6 +9,7 @@ import DTO.KhuyenMaiDTO;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -29,8 +30,8 @@ public class KhuyenMaiDAO {
 
                 String maKM = rs.getString("MAKM");
                 String tenKM = rs.getString("TENKM");
-                String ngayBD = rs.getString("NGAYBD");
-                String ngayKT = rs.getString("NGAYKT");
+                Date ngayBD = rs.getDate("NGAYBD");
+                Date ngayKT = rs.getDate("NGAYKT");
                 Double giamgia = rs.getDouble("GIAMGIA");
 
                 KhuyenMaiDTO km = new KhuyenMaiDTO(maKM, tenKM, ngayBD, ngayKT, giamgia);
@@ -40,7 +41,7 @@ public class KhuyenMaiDAO {
             con.disConnect();
 
         } catch (SQLException ex) {
-            Logger.getLogger(KhachHangDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(KhuyenMaiDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return dskm;

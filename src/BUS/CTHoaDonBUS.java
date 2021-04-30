@@ -19,15 +19,15 @@ public class CTHoaDonBUS {
     
    public void list()
     {
-        CTHoaDonDAO loaiDAO = new CTHoaDonDAO();
+        CTHoaDonDAO ctHDDAO = new CTHoaDonDAO();
         listChiTietHD= new ArrayList<>();
-        listChiTietHD = loaiDAO.list();
+        listChiTietHD = ctHDDAO.list();
     }
     public void add(CTHoaDonDTO loai) throws SQLException
     {
         listChiTietHD.add(loai);
-        CTHoaDonDAO loaiDAO = new CTHoaDonDAO();
-        loaiDAO.add(loai);
+        CTHoaDonDAO ctHDDAO = new CTHoaDonDAO();
+        ctHDDAO.add(loai);
     }
 
     public void delete(int idChiTietHD)
@@ -37,8 +37,8 @@ public class CTHoaDonBUS {
             if(i.getMaHD()==idChiTietHD)
             {
                 listChiTietHD.remove(i);
-                CTHoaDonDAO loaiDAO = new CTHoaDonDAO();
-                loaiDAO.delete(idChiTietHD);
+                CTHoaDonDAO ctHDDAO = new CTHoaDonDAO();
+                ctHDDAO.delete(idChiTietHD);
                 return;
             }
         }

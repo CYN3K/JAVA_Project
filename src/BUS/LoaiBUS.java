@@ -70,7 +70,7 @@ public class LoaiBUS {
     }
     public void search1(int maHD) throws SQLException
     {
-        String sql = "select * from CT_NHAP where LOAI like'%" +maHD +"%'";
+        String sql = "select * from LOAI where MALOAI like'%" +maHD +"%'";
         ResultSet rs = con.executeQuery(sql);
        
     }

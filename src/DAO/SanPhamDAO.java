@@ -23,7 +23,6 @@ public class SanPhamDAO {
 
             String sql = "SELECT * FROM SANPHAM";
             ResultSet rs = con.executeQuery(sql);
-            //(String id, String name, double giaban, int soluong, String dvt, String nsx, String idloai)
             while (rs.next()) {
    
                 String maSp = rs.getString("MASP");
@@ -41,7 +40,7 @@ public class SanPhamDAO {
             con.disConnect();
 
         } catch (SQLException ex) {
-            Logger.getLogger(LoaiDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SanPhamDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return dssp;

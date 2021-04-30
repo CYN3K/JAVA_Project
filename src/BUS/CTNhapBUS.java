@@ -19,15 +19,15 @@ public class CTNhapBUS {
     }
  public void list()
     {
-        CTNhapDAO loaiDAO = new  CTNhapDAO();
+        CTNhapDAO ctNhapDAO = new  CTNhapDAO();
         listCTNhap= new ArrayList<>();
-        listCTNhap = loaiDAO.list();
+        listCTNhap = ctNhapDAO.list();
     }
     public void add(CTNhapDTO a) throws SQLException
     {
         listCTNhap.add(a);
-        CTNhapDAO loaiDAO = new  CTNhapDAO();
-        loaiDAO.add(a);
+        CTNhapDAO ctNhapDAO = new  CTNhapDAO();
+        ctNhapDAO.add(a);
     }
 
     public void delete(int idChiTietHD)
@@ -37,8 +37,8 @@ public class CTNhapBUS {
             if(i.getMaNK()==idChiTietHD)
             {
                 listCTNhap.remove(i);
-                CTNhapDAO loaiDAO = new  CTNhapDAO();
-                loaiDAO.delete(idChiTietHD);
+                CTNhapDAO ctNhapDAO = new  CTNhapDAO();
+                ctNhapDAO.delete(idChiTietHD);
                 return;
             }
         }

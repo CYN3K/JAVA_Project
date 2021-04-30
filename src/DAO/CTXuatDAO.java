@@ -40,7 +40,7 @@ public class CTXuatDAO {
             con.disConnect();
 
         } catch (SQLException ex) {
-            Logger.getLogger(NhanVienDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CTXuatDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return listCt;
     }
@@ -59,7 +59,7 @@ public class CTXuatDAO {
         sql += "MAXK='" + hdDAO.getMaXK() + "', ";
         sql += "MASP='" + hdDAO.getMaSP() + "', ";
         sql += "SOLUONG='" + hdDAO.getSoluong() + "'";
-        sql += " WHERE MAHD='" + hdDAO.getMaXK() + "'";
+        sql += " WHERE MAXK='" + hdDAO.getMaXK() + "'";
 
         con.executeUpdate(sql);
     }

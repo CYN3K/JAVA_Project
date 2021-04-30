@@ -5,18 +5,21 @@
  */
 package DTO;
 
+import java.util.Date;
+
 /**
  *
  * @author macar
  */
 public class KhuyenMaiDTO {
-    private String maKM, tenKM, ngayBD, ngayKT;
+    private String maKM, tenKM;
+    private Date ngayBD, ngayKT;
     private double giamgia;
 
     public KhuyenMaiDTO() {
     }
 
-    public KhuyenMaiDTO(String maKM, String tenKM, String ngayBD, String ngayKT, double giamgia) {
+    public KhuyenMaiDTO(String maKM, String tenKM, Date ngayBD, Date ngayKT, double giamgia) {
         this.maKM = maKM;
         this.tenKM = tenKM;
         this.ngayBD = ngayBD;
@@ -40,19 +43,19 @@ public class KhuyenMaiDTO {
         this.tenKM = tenKM;
     }
 
-    public String getNgayBD() {
+    public Date getNgayBD() {
         return ngayBD;
     }
 
-    public void setNgayBD(String ngayBD) {
+    public void setNgayBD(Date ngayBD) {
         this.ngayBD = ngayBD;
     }
 
-    public String getNgayKT() {
+    public Date getNgayKT() {
         return ngayKT;
     }
 
-    public void setNgayKT(String ngayKT) {
+    public void setNgayKT(Date ngayKT) {
         this.ngayKT = ngayKT;
     }
 

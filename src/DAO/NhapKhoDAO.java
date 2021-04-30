@@ -23,7 +23,6 @@ public class NhapKhoDAO {
 
             String sql = "SELECT * FROM NHAPKHO";
             ResultSet rs = con.executeQuery(sql);
-            //(int maNK, int maNCC, String ngayNK, String gioNK, String maNV, double tonggia)
             while (rs.next()) {
                 int maNK = rs.getInt("MANK");
                 int maNcc = rs.getInt("MANCC");
@@ -38,7 +37,7 @@ public class NhapKhoDAO {
             con.disConnect();
 
         } catch (SQLException ex) {
-            Logger.getLogger(LoaiDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(NhapKhoDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return dsnk;

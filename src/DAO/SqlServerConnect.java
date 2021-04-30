@@ -91,7 +91,8 @@ public class SqlServerConnect {
     }
 
     public boolean isConnect() {
-        return conn != null ? true : false;
+        if(conn != null) return  true;
+        else return false;
     }
     public static void main(String[] args) throws SQLException {
         SqlServerConnect a  = new SqlServerConnect();

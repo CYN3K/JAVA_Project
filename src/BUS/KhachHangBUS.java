@@ -21,15 +21,15 @@ public class KhachHangBUS {
     }
  public void list()
     {
-        KhachHangDAO loaiDAO = new KhachHangDAO();
+        KhachHangDAO khDAO = new KhachHangDAO();
         listChiTietKH= new ArrayList<>();
-        listChiTietKH = loaiDAO.list();
+        listChiTietKH = khDAO.list();
     }
     public void add(KhachHangDTO loai) throws SQLException
     {
         listChiTietKH.add(loai);
-        KhachHangDAO loaiDAO = new KhachHangDAO();
-        loaiDAO.add(loai);
+        KhachHangDAO khDAO = new KhachHangDAO();
+        khDAO.add(loai);
     }
 
     public void delete(int idChiTietHD)
@@ -39,8 +39,8 @@ public class KhachHangBUS {
             if(i.getMaKH()==idChiTietHD)
             {
                 listChiTietKH.remove(i);
-                KhachHangDAO loaiDAO = new KhachHangDAO();
-                loaiDAO.delete(idChiTietHD);
+                KhachHangDAO khDAO = new KhachHangDAO();
+                khDAO.delete(idChiTietHD);
                 return;
             }
         }
@@ -70,7 +70,7 @@ public class KhachHangBUS {
     }
      public void search1(int maHD) throws SQLException
     {
-        String sql = "select * from CT_HOADON where MAHD like'%" +maHD +"%'";
+        String sql = "select * from KHACHHANG where MAKH like'%" +maHD +"%'";
         
         ResultSet rs = con.executeQuery(sql);
        

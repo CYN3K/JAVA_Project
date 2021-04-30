@@ -21,15 +21,15 @@ public class KhuyenMaiBUS {
     }
  public void list()
     {
-        KhuyenMaiDAO loaiDAO = new  KhuyenMaiDAO();
+        KhuyenMaiDAO kmDAO = new  KhuyenMaiDAO();
         listKM= new ArrayList<>();
-        listKM = loaiDAO.list();
+        listKM = kmDAO.list();
     }
     public void add(KhuyenMaiDTO a) throws SQLException
     {
         listKM.add(a);
-        KhuyenMaiDAO loaiDAO = new  KhuyenMaiDAO();
-        loaiDAO.add(a);
+        KhuyenMaiDAO kmDAO = new  KhuyenMaiDAO();
+        kmDAO.add(a);
     }
 
     public void delete(String idChiTietKM)
@@ -39,8 +39,8 @@ public class KhuyenMaiBUS {
             if(i.getMaKM().equals(idChiTietKM))
             {
                 listKM.remove(i);
-                KhuyenMaiDAO loaiDAO = new  KhuyenMaiDAO();
-                loaiDAO.delete(idChiTietKM);
+                KhuyenMaiDAO kmDAO = new  KhuyenMaiDAO();
+                kmDAO.delete(idChiTietKM);
                 return;
             }
         }
@@ -70,7 +70,7 @@ public class KhuyenMaiBUS {
     }
     public void search1(int maHD) throws SQLException
     {
-        String sql = "select * from CT_NHAP where MAKM like'%" +maHD +"%'";
+        String sql = "select * from KHUYENMAI where MAKM like'%" +maHD +"%'";
         ResultSet rs = con.executeQuery(sql);
        
     }

@@ -39,7 +39,7 @@ public class CTNhapDAO {
             con.disConnect();
 
         } catch (SQLException ex) {
-            Logger.getLogger(NhanVienDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CTNhapDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return listCt;
     }
@@ -64,8 +64,6 @@ public class CTNhapDAO {
         sql += "SOLUONG='" + hdDAO.getSoluong() + "', ";
         sql += "THANHTIEN='" + hdDAO.getThanhtien() + "'";
         sql += " WHERE MAHD='" + hdDAO.getMaNK() + "'";
-        System.out.println(sql);
-
         con.executeUpdate(sql);
     }
 

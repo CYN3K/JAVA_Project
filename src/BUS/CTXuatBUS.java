@@ -21,15 +21,15 @@ public class CTXuatBUS {
     }
    public void list()
     {
-        CTXuatDAO loaiDAO = new  CTXuatDAO();
+        CTXuatDAO ctXuatDAO = new  CTXuatDAO();
         listCTXuat= new ArrayList<>();
-        listCTXuat = loaiDAO.list();
+        listCTXuat = ctXuatDAO.list();
     }
     public void add(CTXuatDTO a) throws SQLException
     {
         listCTXuat.add(a);
-        CTXuatDAO loaiDAO = new  CTXuatDAO();
-        loaiDAO.add(a);
+        CTXuatDAO ctXuatDAO = new  CTXuatDAO();
+        ctXuatDAO.add(a);
     }
 
     public void delete(int idChiTietHD)
@@ -39,8 +39,8 @@ public class CTXuatBUS {
             if(i.getMaXK()==idChiTietHD)
             {
                 listCTXuat.remove(i);
-                CTXuatDAO loaiDAO = new  CTXuatDAO();
-                loaiDAO.delete(idChiTietHD);
+                CTXuatDAO ctXuatDAO = new  CTXuatDAO();
+                ctXuatDAO.delete(idChiTietHD);
                 return;
             }
         }
@@ -70,7 +70,7 @@ public class CTXuatBUS {
     }
     public void search1(int maHD) throws SQLException
     {
-        String sql = "select * from CT_NHAP where MANK like'%" +maHD +"%'";
+        String sql = "select * from CT_XUAT where MAXK like'%" +maHD +"%'";
         ResultSet rs = con.executeQuery(sql);
        
     }

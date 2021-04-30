@@ -62,7 +62,7 @@ public class XuatKhoBUS {
     }
 
     public void search1(int maNV) throws SQLException {
-        String sql = "select * from CT_NHAP where XUATKHO like'%" + maNV + "%'";
+        String sql = "select * from XUATKHO where MAXK like'%" + maNV + "%'";
         ResultSet rs = con.executeQuery(sql);
 
     }

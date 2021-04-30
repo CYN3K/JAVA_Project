@@ -24,8 +24,8 @@ public class HoaDonBUS {
     public void add(HoaDonDTO a) throws SQLException
     {
         listCTXuat.add(a);
-        HoaDonDAO loaiDAO = new  HoaDonDAO();
-        loaiDAO.add(a);
+        HoaDonDAO hdDAO = new  HoaDonDAO();
+        hdDAO.add(a);
     }
 
     public void delete(int idChiTietHD)
@@ -35,8 +35,8 @@ public class HoaDonBUS {
             if(i.getMaHD()==idChiTietHD)
             {
                 listCTXuat.remove(i);
-                HoaDonDAO loaiDAO = new  HoaDonDAO();
-                loaiDAO.delete(idChiTietHD);
+                HoaDonDAO hdDAO = new  HoaDonDAO();
+                hdDAO.delete(idChiTietHD);
                 return;
             }
         }
@@ -66,7 +66,7 @@ public class HoaDonBUS {
     }
     public void search1(int maHD) throws SQLException
     {
-        String sql = "select * from CT_NHAP where MANK like'%" +maHD +"%'";
+        String sql = "select * from HOADON where MAHD like'%" +maHD +"%'";
         ResultSet rs = con.executeQuery(sql);
        
     }

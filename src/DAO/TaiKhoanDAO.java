@@ -30,7 +30,7 @@ public class TaiKhoanDAO {
         ArrayList<TaiKhoanDTO> dsuserers = new ArrayList<>();
         try {
             
-            String sql = "SELECT * FROM TAIKHOAN";
+            String sql = "SELECT * FROM TAIKHOAN WHERE ENABLE = 1";
             ResultSet rs = con.executeQuery(sql);
             while (rs.next()) {
                 int ID = rs.getInt("ID");
@@ -48,14 +48,12 @@ public class TaiKhoanDAO {
             con.disConnect();
 
         } catch (SQLException ex) {
-            Logger.getLogger(NhanVienDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TaiKhoanDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return dsuserers;
     }
 
     public void set(TaiKhoanDTO user) throws SQLException {
-        //int c = user.getId();
-        //String sql3 = "DBCC CHECKIDENT ('TAIKHOAN', RESEED,"+ c+");";
         String sql1 = "SET IDENTITY_INSERT TAIKHOAN ON;";
         String sql2 = "SET IDENTITY_INSERT TAIKHOAN OFF;";
         String sql = "UPDATE TAIKHOAN SET ";
@@ -65,12 +63,10 @@ public class TaiKhoanDAO {
         sql += "QUYEN='" + user.getQuyen() + "' ,";
         sql += "ENABLE='" + user.getEnable() + "' ";
         sql += " WHERE ID='" + user.getId() + "'";
-        //con.executeUpdate(sql3);
-        con.executeUpdate(sql1);
-        
+        con.executeUpdate(sql1);      
         con.executeUpdate(sql);
         con.executeUpdate(sql2);
-        System.out.println(sql);
+
         
     }
 
