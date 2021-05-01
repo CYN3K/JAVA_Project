@@ -102,9 +102,5 @@ public class CTHoaDonBUS {
     public ArrayList<CTHoaDonDTO> getList() {
         return listChiTietHD;
     }
-    public static void main(String[] args) {
-        CTHoaDonBUS a= new CTHoaDonBUS();
-        a.list();
-        System.out.println(a.getList());
-    }
+    
 }

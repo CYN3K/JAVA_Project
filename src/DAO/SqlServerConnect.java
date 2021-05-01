@@ -94,11 +94,5 @@ public class SqlServerConnect {
         if(conn != null) return  true;
         else return false;
     }
-    public static void main(String[] args) throws SQLException {
-        SqlServerConnect a  = new SqlServerConnect();
-        a.Connect();
-        System.out.println(a.isConnect());
-       
-        
-    }
+    
 }

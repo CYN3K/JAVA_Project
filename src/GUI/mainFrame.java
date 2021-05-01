@@ -41,7 +41,7 @@ public class mainFrame extends javax.swing.JFrame {
 
         initComponents();
         tableSP.getModel();
-        
+        this.setLocationRelativeTo(null);
         listSP();
 
     }

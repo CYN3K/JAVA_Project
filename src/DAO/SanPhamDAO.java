@@ -248,8 +248,5 @@ public class SanPhamDAO {
         }
     }
 
-    public static void main(String[] args) {
-        SanPhamDAO a = new SanPhamDAO();
-        a.ExportExcelDatabase();
-    }
+   
 }
