@@ -8,6 +8,7 @@ package BUS;
 import DTO.SanPhamDTO;
 import DAO.SanPhamDAO;
 import DAO.SqlServerConnect;
+import java.io.File;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -109,5 +110,13 @@ public class SanPhamBUS {
     public ArrayList<SanPhamDTO> getList() {
         return listSP;
     }
-
+    public void ExportExcelDatabase(){
+        SanPhamDAO spDAO = new SanPhamDAO();
+        spDAO.ExportExcelDatabase();
+    }
+    
+    public void ImportExcelDatabase(File file){
+        SanPhamDAO spDAO = new SanPhamDAO();
+        spDAO.ImportExcelDatabase(file);
+    }
 }

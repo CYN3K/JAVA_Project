@@ -73,6 +73,7 @@ public class CTHoaDonBUS {
         ResultSet rs = con.executeQuery(sql);
        
     }
+   
     public ArrayList<Integer> getHD(String maSP)
     {
         ArrayList<Integer> s = new ArrayList<>();
@@ -101,5 +102,9 @@ public class CTHoaDonBUS {
     public ArrayList<CTHoaDonDTO> getList() {
         return listChiTietHD;
     }
-  
+    public static void main(String[] args) {
+        CTHoaDonBUS a= new CTHoaDonBUS();
+        a.list();
+        System.out.println(a.getList());
+    }
 }

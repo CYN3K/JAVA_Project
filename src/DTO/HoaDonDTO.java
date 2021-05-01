@@ -13,15 +13,13 @@ import java.sql.Time;
  */
 public class HoaDonDTO {
     private int maHD, maKH;
-    private String  maKM, maNV;
-    private Date ngayLap;
-    private Time gioLap;
+    private String  maKM, maNV,ngayLap,gioLap;
     private double tongtien, chietkhau, thanhtoan;
 
     public HoaDonDTO() {
     }
 
-    public HoaDonDTO(int maHD, int maKH, Date ngayLap, Time gioLap, String maKM, String maNV, double tongtien, double chietkhau, double thanhtoan) {
+    public HoaDonDTO(int maHD, int maKH, String ngayLap, String gioLap, String maKM, String maNV, double tongtien, double chietkhau, double thanhtoan) {
         this.maHD = maHD;
         this.maKH = maKH;
         this.ngayLap = ngayLap;
@@ -49,19 +47,19 @@ public class HoaDonDTO {
         this.maKH = maKH;
     }
 
-    public Date getNgayLap() {
+    public String getNgayLap() {
         return ngayLap;
     }
 
-    public void setNgayLap(Date ngayLap) {
+    public void setNgayLap(String ngayLap) {
         this.ngayLap = ngayLap;
     }
 
-    public Time getGioLap() {
+    public String getGioLap() {
         return gioLap;
     }
 
-    public void setGioLap(Time gioLap) {
+    public void setGioLap(String gioLap) {
         this.gioLap = gioLap;
     }
 

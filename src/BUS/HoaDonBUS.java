@@ -21,6 +21,12 @@ public class HoaDonBUS {
 
     public HoaDonBUS() {
     }
+     public void list()
+    {
+        HoaDonDAO hoadonDAO = new HoaDonDAO();
+        listCTXuat= new ArrayList<>();
+        listCTXuat = hoadonDAO.list();
+    }
     public void add(HoaDonDTO a) throws SQLException
     {
         listCTXuat.add(a);

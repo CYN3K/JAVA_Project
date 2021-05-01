@@ -33,8 +33,8 @@ public class HoaDonDAO {
             {
                 int maHD = rs.getInt("MAHD");
                 int maKH = rs.getInt("MAKH");
-                Date ngayLap = rs.getDate("NGAYLAP");
-                Time gioLap = rs.getTime("GIOLAP");
+                String ngayLap = rs.getString("NGAYLAP");
+               String gioLap = rs.getString("GIOLAP");
                 String maKM = rs.getString("MAKM");
                 String maNV = rs.getString("MANV");
                 Double tongtien = rs.getDouble("TONGTIEN");
