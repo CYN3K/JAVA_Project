@@ -310,7 +310,8 @@ public class mainFrame extends javax.swing.JFrame {
 
     private void btnSpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSpActionPerformed
         txtSearch.setText("");
-        loadSanPham(sp);
+        listSP();
+        
     }//GEN-LAST:event_btnSpActionPerformed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
@@ -396,25 +397,20 @@ public class mainFrame extends javax.swing.JFrame {
 
         spBUS.ExportExcelDatabase();
         JOptionPane.showMessageDialog(null, "Export excel completed!");
+        loadSanPham(sp);
     }//GEN-LAST:event_jButton1MouseClicked
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        JFileChooser fc = new JFileChooser();
-        FileNameExtensionFilter filter = new FileNameExtensionFilter(
-                "Excel", "xlsx");
-        fc.setFileFilter(filter);
-        int result = fc.showOpenDialog(null);
-        if (result == JFileChooser.APPROVE_OPTION) {
-            File file = fc.getSelectedFile();
-            spBUS.ImportExcelDatabase(file);
-            spBUS.list();
-            JOptionPane.showMessageDialog(null, "Import excel completed!");
-        }
+
+        spBUS.ImportExcelDatabase();
+        JOptionPane.showMessageDialog(null, "Import excel completed!");
+        loadSanPham(sp);
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         Bill_pdf bill = new Bill_pdf();
-        bill.print(8);
+        bill.print(12);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     /**

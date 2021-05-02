@@ -173,17 +173,17 @@ public class SanPhamDAO {
             if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
                 int count = 0;
                 File ex = new File(chooser.getSelectedFile() + "/sanphamExcel.xlsx");
-                while(ex.exists()) {
+                while (ex.exists()) {
                     String s = "ssanphamExcel.xlsx";
-                    String[] parts = s.split(".",2);
-                    String path = parts[1];              
-                    ex = new File(chooser.getSelectedFile() +"/"+"("+(count++)+")"+path );
+                    String[] parts = s.split(".", 2);
+                    String path = parts[1];
+                    ex = new File(chooser.getSelectedFile() + "/" + "(" + (count++) + ")" + path);
                 }
                 FileOutputStream out = new FileOutputStream(ex);
                 out = new FileOutputStream(ex);
                 workbook.write(out);
                 out.close();
-            } 
+            }
 
         } catch (SQLException ex) {
             Logger.getLogger(SanPhamDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -195,8 +195,19 @@ public class SanPhamDAO {
 
     }
 
-    public void ImportExcelDatabase(File file) {
+    public void ImportExcelDatabase() {
         try {
+
+            JFileChooser fc = new JFileChooser();
+
+            FileNameExtensionFilter filter = new FileNameExtensionFilter(
+                    "Excel", "xlsx");
+            fc.setFileFilter(filter);
+            File file = fc.getSelectedFile();
+            if (fc.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+                file = fc.getSelectedFile();
+            }
+
             FileInputStream in = new FileInputStream(file);
             XSSFWorkbook workbook = new XSSFWorkbook(in);
             XSSFSheet sheet = workbook.getSheetAt(0);
@@ -216,24 +227,26 @@ public class SanPhamDAO {
                 String sql_check = "SELECT * FROM SANPHAM WHERE MASP='" + maSP + "'";
                 ResultSet rs = con.executeQuery(sql_check);
                 if (!rs.next()) {
+                    
                     String sql = "INSERT INTO SANPHAM VALUES (";
                     sql += "'" + maSP + "',";
-                    sql += "N'" + tenSP + "',";
-                    sql += "'" + sl + "',";
+                    sql += "'" + tenSP + "',";
                     sql += "'" + gia + "',";
-                    sql += "N'" + dvt + "',";
+                    sql += "'" + sl + "',";
+                    sql += "'" + dvt + "',";
                     sql += "'" + nsx + "',";
                     sql += "'" + maloai + "')";
                     System.out.println(sql);
-                    con.executeQuery(sql);
+                    con.executeUpdate(sql);
                 } else {
+                    
                     String sql = "UPDATE SANPHAM SET ";
                     sql += "TENSP='" + tenSP + "', ";
-                    sql += "SOLUONG='" + sl + "', ";
-                    sql += "GIA='" + gia + "', ";
-                    sql += "DONVITINH='" + dvt + "', ";
-                    sql += "MALOAI='" + nsx + "', ";
-                    sql += "MANSX='" + maloai + "' ";
+                    sql += "GIABAN='" + sl + "', ";
+                    sql += "SOLUONG='" + gia + "', ";
+                    sql += "DVT='" + dvt + "', ";
+                    sql += "NSX='" + nsx + "', ";
+                    sql += "MALOAI='" + maloai + "' ";
                     sql += "WHERE MASP='" + maSP + "'";
                     System.out.println(sql);
                     con.executeUpdate(sql);
@@ -248,5 +261,4 @@ public class SanPhamDAO {
         }
     }
 
-   
 }

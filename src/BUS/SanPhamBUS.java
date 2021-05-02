@@ -115,8 +115,8 @@ public class SanPhamBUS {
         spDAO.ExportExcelDatabase();
     }
     
-    public void ImportExcelDatabase(File file){
+    public void ImportExcelDatabase(){
         SanPhamDAO spDAO = new SanPhamDAO();
-        spDAO.ImportExcelDatabase(file);
+        spDAO.ImportExcelDatabase();
     }
 }

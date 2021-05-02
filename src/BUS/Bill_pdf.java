@@ -97,9 +97,11 @@ public class Bill_pdf {
                 header.setAlignment(1);
                 bill.add(header);
 
-                Paragraph info = new Paragraph("Hóa đơn : "  + hdbus.search(mahd).getMaHD() + "          Ngày : " + hdbus.search(mahd).getNgayLap()+ "          Nhân viên : " + hdbus.search(mahd).getMaNV(), new Font(bf, 15));
+                Paragraph info = new Paragraph("Hóa đơn : "  + hdbus.search(mahd).getMaHD() 
+                        + "          Ngày : " + hdbus.search(mahd).getNgayLap()
+                        + "                                                     Nhân viên : " + hdbus.search(mahd).getMaNV(), new Font(bf, 15));
                 bill.add(info);
-
+              
                 Paragraph l = new Paragraph(line);
                 l.setAlignment(1);
                 bill.add(l);
