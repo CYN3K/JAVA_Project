@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package GUI;
 
 import BUS.*;
@@ -404,13 +400,15 @@ public class mainFrame extends javax.swing.JFrame {
 
         spBUS.ImportExcelDatabase();
         JOptionPane.showMessageDialog(null, "Import excel completed!");
+        model.setRowCount(0);
+        listSP();
         loadSanPham(sp);
 
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         Bill_pdf bill = new Bill_pdf();
-        bill.print(12);
+        bill.printSanPham(12);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     /**

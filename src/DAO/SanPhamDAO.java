@@ -65,11 +65,11 @@ public class SanPhamDAO {
     public void add(SanPhamDTO a) {
         String sql = "INSERT INTO SANPHAM VALUES (";
         sql += "'" + a.getMaSP() + "',";
-        sql += "'" + a.getTenSP() + "',";
+        sql += "N'" + a.getTenSP() + "',";
         sql += "'" + a.getGiaban() + "',";
         sql += "'" + a.getSoluong() + "',";
-        sql += "'" + a.getDvt() + "',";
-        sql += "'" + a.getNsx() + "',";
+        sql += "N'" + a.getDvt() + "',";
+        sql += "N'" + a.getNsx() + "',";
         sql += "'" + a.getMaloai() + "')";
         con.executeUpdate(sql);
 
@@ -90,8 +90,9 @@ public class SanPhamDAO {
     }
 
     public void delete(String a) {
-        String sql = "DELETE FROM SANPHAM WHERE MASP='" + a + "'";
-        con.executeUpdate(sql);
+        String sql = "DELETE FROM SANPHAM WHERE MASP='" + a + "'";  
+        con.executeQuery(sql);
+        System.out.println(sql);
 
     }
 
@@ -226,30 +227,28 @@ public class SanPhamDAO {
 
                 String sql_check = "SELECT * FROM SANPHAM WHERE MASP='" + maSP + "'";
                 ResultSet rs = con.executeQuery(sql_check);
-                if (!rs.next()) {
-                    
+                if (rs.next()) {                 
                     String sql = "INSERT INTO SANPHAM VALUES (";
                     sql += "'" + maSP + "',";
-                    sql += "'" + tenSP + "',";
+                    sql += "N'" + tenSP + "',";
                     sql += "'" + gia + "',";
                     sql += "'" + sl + "',";
-                    sql += "'" + dvt + "',";
-                    sql += "'" + nsx + "',";
-                    sql += "'" + maloai + "')";
+                    sql += "N'" + dvt + "',";
+                    sql += "N'" + nsx + "',";
+                    sql += "'" + maloai + "');";
                     System.out.println(sql);
                     con.executeUpdate(sql);
                 } else {
-                    
                     String sql = "UPDATE SANPHAM SET ";
-                    sql += "TENSP='" + tenSP + "', ";
-                    sql += "GIABAN='" + sl + "', ";
-                    sql += "SOLUONG='" + gia + "', ";
-                    sql += "DVT='" + dvt + "', ";
-                    sql += "NSX='" + nsx + "', ";
-                    sql += "MALOAI='" + maloai + "' ";
-                    sql += "WHERE MASP='" + maSP + "'";
+                    sql += "TENSP=N'" + tenSP + "', ";
+                    sql += "GIABAN='" + gia + "', ";
+                    sql += "SOLUONG='" + sl + "', ";
+                    sql += "DVT=N'" + dvt + "', ";
+                    sql += "NSX=N'" + nsx + "', ";
+                    sql += "MALOAI=N'" + maloai + "' ";
+                    sql += "WHERE MASP='" + maSP + "';";
                     System.out.println(sql);
-                    con.executeUpdate(sql);
+                    con.executeQuery(sql);
                 }
             }
             in.close();
@@ -258,7 +257,9 @@ public class SanPhamDAO {
             Logger.getLogger(SanPhamDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException | SQLException ex) {
             Logger.getLogger(SanPhamDAO.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex);
+                    
         }
     }
-
+  
 }

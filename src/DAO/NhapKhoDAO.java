@@ -26,9 +26,9 @@ public class NhapKhoDAO {
             while (rs.next()) {
                 int maNK = rs.getInt("MANK");
                 int maNcc = rs.getInt("MANCC");
-                String ngayNK = rs.getString("NGAYNK");
-                String gioNK = rs.getString("gioNK");
-                String maNV = rs.getString("maNV");
+                String ngayNK = rs.getString("NGAYNHAP");
+                String gioNK = rs.getString("GIONHAP");
+                String maNV = rs.getString("MANV");
                 Double tonggia = rs.getDouble("TONGGIA");
                 NhapKhoDTO n = new NhapKhoDTO(maNK,maNcc,ngayNK,gioNK,maNV,tonggia);
                 dsnk.add(n);
@@ -73,6 +73,11 @@ public class NhapKhoDAO {
         String sql = "DELETE FROM NHAPKHO WHERE MANK='" + a + "'";
         con.executeUpdate(sql);
 
+    }
+    public static void main(String[] args) {
+        NhapKhoDAO a= new NhapKhoDAO();
+        a.list();
+        System.out.println(a);
     }
 }
 
