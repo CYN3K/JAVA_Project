@@ -1,15 +1,4 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package GUI;
-
-/**
- *
- * @author Admin
- */
-/*
  *  Copyright (C) 2007 Kai Toedter 
  *  kai@toedter.com
  *  www.toedter.com
@@ -29,6 +18,7 @@ package GUI;
  *  Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
+package com.toedter.calendar;
 
 import java.beans.PropertyChangeListener;
 import java.util.Date;
@@ -42,10 +32,10 @@ import javax.swing.JComponent;
  * 
  * @author Kai Toedter
  * @version $LastChangedRevision: 142 $
- * @version $LastChangedDate: 2011-06-05 07:06:03 +0200 (So, 05 Jun 2011) $
+ * @version $LastChangedDate: 2011-06-05 07:06:03 +0200 (Sun, 05 Jun 2011) $
  * 
  */
-public interface iDate {
+public interface IDateEditor {
 
 	/**
 	 * 

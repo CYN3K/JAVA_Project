@@ -7,10 +7,10 @@ package GUI;
 
 import BUS.*;
 import DTO.*;
-import GUI.iDate;
-import java.util.Calendar;
-import com.toedter.calendar.JCalendar;
+import java.util.Date;
 import java.awt.event.ActionListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Vector;
@@ -33,9 +33,11 @@ public class HoaDonGUI extends javax.swing.JFrame {
     String[] headerHD = new String[]{"MAHD", "MAKH", "MANV", "NGÀY LẬP", "GIỜ LẬP", "TỔNG TIỀN", "CHIẾT KHẤU", "THÀNH TOÁN"};
     String[] headerCTHD = new String[]{"MAHD", "MASP", "SỐ LƯỢNG", "ĐƠN GIÁ", "THÀNH TIỀN"};
     String[] headerlshdNV = new String[]{"MAHD", "MAKH", "MANV", "NGÀY LẬP", "GIỜ LẬP", "TỔNG TIỀN", "CHIẾT KHẤU", "THÀNH TOÁN"};
+    String[] headerlshdKH = new String[]{"MAHD", "MAKH", "MANV", "NGÀY LẬP", "GIỜ LẬP", "TỔNG TIỀN", "CHIẾT KHẤU", "THÀNH TOÁN"};
     DefaultTableModel model = new DefaultTableModel(headerHD, 0);
     DefaultTableModel model1 = new DefaultTableModel(headerCTHD, 0);
     DefaultTableModel model2 = new DefaultTableModel(headerlshdNV, 0);
+    DefaultTableModel model3 = new DefaultTableModel(headerlshdKH, 0);
     private HoaDonBUS hdBUS = new HoaDonBUS();
     private CTHoaDonBUS cthdbus = new CTHoaDonBUS();
     private TableRowSorter<TableModel> rowSorter;
@@ -49,10 +51,12 @@ public class HoaDonGUI extends javax.swing.JFrame {
         tableHoadon.getModel();
         tableCTHoaDon.getModel();
         tableHDNV.getModel();
+        tableHDKH.getModel();
         listHD();
         cthdbus.list();
         cthd = cthdbus.getList();
         this.setLocationRelativeTo(null);
+       
 
     }
 
@@ -132,17 +136,21 @@ public class HoaDonGUI extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         tableHDNV = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
+        fHDKH = new javax.swing.JFrame();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        tableHDKH = new javax.swing.JTable();
+        jLabel3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableHoadon = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
         tableCTHoaDon = new javax.swing.JTable();
         txtSearch = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        dateFrom = new com.toedter.calendar.JDateChooser();
-        dateTo = new com.toedter.calendar.JDateChooser();
         in = new javax.swing.JButton();
         btnNV = new javax.swing.JButton();
         btnKH = new javax.swing.JButton();
+
+        fHDNV.setMinimumSize(new java.awt.Dimension(800, 600));
 
         tableHDNV.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -179,6 +187,45 @@ public class HoaDonGUI extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        fHDKH.setMinimumSize(new java.awt.Dimension(800, 600));
+
+        tableHDKH.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane4.setViewportView(tableHDKH);
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel3.setText("Hóa đơn khách hàng");
+
+        javax.swing.GroupLayout fHDKHLayout = new javax.swing.GroupLayout(fHDKH.getContentPane());
+        fHDKH.getContentPane().setLayout(fHDKHLayout);
+        fHDKHLayout.setHorizontalGroup(
+            fHDKHLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(fHDKHLayout.createSequentialGroup()
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, fHDKHLayout.createSequentialGroup()
+                .addGap(0, 69, Short.MAX_VALUE)
+                .addComponent(jLabel3)
+                .addGap(88, 88, 88))
+        );
+        fHDKHLayout.setVerticalGroup(
+            fHDKHLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, fHDKHLayout.createSequentialGroup()
+                .addContainerGap(25, Short.MAX_VALUE)
+                .addComponent(jLabel3)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -223,18 +270,6 @@ public class HoaDonGUI extends javax.swing.JFrame {
 
         jLabel1.setText("Tìm kiếm:");
 
-        dateFrom.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                dateFromPropertyChange(evt);
-            }
-        });
-
-        dateTo.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                dateToPropertyChange(evt);
-            }
-        });
-
         in.setText("In hóa đơn");
         in.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -250,6 +285,11 @@ public class HoaDonGUI extends javax.swing.JFrame {
         });
 
         btnKH.setText("Xem hóa đơn khách hàng");
+        btnKH.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnKHActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -257,17 +297,11 @@ public class HoaDonGUI extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(22, 22, 22)
-                        .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(36, 36, 36)
-                        .addComponent(in))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(dateFrom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(35, 35, 35)
-                        .addComponent(dateTo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addComponent(jLabel1)
+                .addGap(22, 22, 22)
+                .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(36, 36, 36)
+                .addComponent(in)
                 .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnKH, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -289,11 +323,7 @@ public class HoaDonGUI extends javax.swing.JFrame {
                     .addComponent(in)
                     .addComponent(btnNV))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(dateFrom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(dateTo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btnKH))
+                .addComponent(btnKH)
                 .addGap(122, 122, 122)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -303,8 +333,9 @@ public class HoaDonGUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void dateToPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_dateToPropertyChange
 
+    private void dateToPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_dateToPropertyChange
+        
     }//GEN-LAST:event_dateToPropertyChange
 
 
@@ -335,10 +366,6 @@ public class HoaDonGUI extends javax.swing.JFrame {
     private void txtSearchKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyPressed
         RowSearch();
     }//GEN-LAST:event_txtSearchKeyPressed
-
-    private void dateFromPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_dateFromPropertyChange
-
-    }//GEN-LAST:event_dateFromPropertyChange
 
     private void inActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inActionPerformed
         Bill_pdf bill = new Bill_pdf();
@@ -373,6 +400,32 @@ public class HoaDonGUI extends javax.swing.JFrame {
         tableHDNV.setModel(model2);
         fHDNV.setVisible(true);
     }//GEN-LAST:event_btnNVActionPerformed
+
+    private void btnKHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKHActionPerformed
+        int row = tableHoadon.getSelectedRow();
+        cc1 = getData(row, 1);
+        Vector data;
+        model3.setRowCount(0);
+        for (HoaDonDTO s : hd) {
+            if (s.getMaKH()== Integer.parseInt(cc1)) {
+
+                data = new Vector();
+                data.add(s.getMaHD());
+                data.add(s.getMaKH());
+                data.add(s.getMaNV());
+                data.add(s.getNgayLap());
+                data.add(s.getGioLap());
+                data.add(s.getTongtien());
+                data.add(s.getChietkhau());
+                data.add(s.getThanhtoan());
+                model3.addRow(data);
+
+            }
+        }
+
+        tableHDKH.setModel(model3);
+        fHDKH.setVisible(true);
+    }//GEN-LAST:event_btnKHActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -409,16 +462,18 @@ public class HoaDonGUI extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnKH;
     private javax.swing.JButton btnNV;
-    private com.toedter.calendar.JDateChooser dateFrom;
-    private com.toedter.calendar.JDateChooser dateTo;
+    private javax.swing.JFrame fHDKH;
     private javax.swing.JFrame fHDNV;
     private javax.swing.JButton in;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTable tableCTHoaDon;
+    private javax.swing.JTable tableHDKH;
     private javax.swing.JTable tableHDNV;
     private javax.swing.JTable tableHoadon;
     private javax.swing.JTextField txtSearch;
