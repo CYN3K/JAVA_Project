@@ -50,13 +50,14 @@ public class mainFrame extends javax.swing.JFrame {
     public void RowSearch() {
         rowSorter = new TableRowSorter<>(tableSP.getModel());
         tableSP.setRowSorter(rowSorter);
+        String re = "^[^<>{}\"/|;:.,~!?@#$%^=&*\\]\\\\()\\[¿§«»ω⊙¤°℃℉€¥£¢¡®©0-9_+/n/s]*$";
         txtSearch.getDocument().addDocumentListener(new DocumentListener() {
 
             @Override
             public void insertUpdate(DocumentEvent e) {
                 String text = txtSearch.getText();
 
-                if (text.trim().length() == 0) {
+                if (text.trim().length() == 0 && text.trim().matches(re)) {
                     rowSorter.setRowFilter(null);
                 } else {
                     rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
@@ -67,7 +68,7 @@ public class mainFrame extends javax.swing.JFrame {
             public void removeUpdate(DocumentEvent e) {
                 String text = txtSearch.getText();
 
-                if (text.trim().length() == 0) {
+                if (text.trim().length() == 0 && text.trim().matches(re)) {
                     rowSorter.setRowFilter(null);
                 } else {
                     rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
@@ -402,7 +403,11 @@ public class mainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnsuaActionPerformed
 
     private void txtSearchKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyPressed
-        RowSearch();
+       if(evt.getKeyCode()==KeyEvent.VK_ENTER ||evt.getKeyCode()==KeyEvent.VK_CAPS_LOCK||evt.getKeyCode()==KeyEvent.VK_SHIFT||evt.getKeyCode()==KeyEvent.VK_ALT){         
+           txtSearch.setText("");
+       }
+       else RowSearch();
+       
 
     }//GEN-LAST:event_txtSearchKeyPressed
 

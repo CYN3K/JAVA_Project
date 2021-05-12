@@ -44,14 +44,17 @@ public class NhapKhoDAO {
     }
 
     public void add(NhapKhoDTO a) {
-        String sql = "INSERT INTO NHAPKHO VALUES (";
+        String sql1 = "SET IDENTITY_INSERT NHAPKHO ON;";
+        String sql2 = "SET IDENTITY_INSERT NHAPKHO OFF;";
+        String sql = "INSERT INTO NHAPKHO ( [MANK],[NGAYNHAP],[GIONHAP],"
+                + "[TONGGIA],[MANCC],[MANV]) VALUES (";
         sql += "'" + a.getMaNK() + "',";
         sql += "'" + a.getNgayNK() + "',";
         sql += "'" + a.getGioNK() + "',";
         sql += "'" + a.getTonggia() + "',";
         sql += "'" + a.getMaNCC() + "',";
         sql += "'" + a.getMaNV() + "')";
-        con.executeUpdate(sql);
+        con.executeUpdate(sql1 + sql + sql2);
 
     }
 

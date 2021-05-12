@@ -248,7 +248,7 @@ public class SanPhamDAO {
                     sql += "MALOAI=N'" + maloai + "' ";
                     sql += "WHERE MASP='" + maSP + "';";
                     System.out.println(sql);
-                    con.executeQuery(sql);
+                    con.executeUpdate(sql);
                 }
             }
             in.close();
