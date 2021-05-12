@@ -135,8 +135,12 @@ public class NhapHangGUI extends javax.swing.JFrame {
             data1.add(cbNsx.getSelectedItem());
             data1.add(cbIdloai.getSelectedItem());
             modelNH.addRow(data1);
-
             tableNhapHang.setModel(modelNH);
+            txtId.setText("");
+            txtName.setText("");
+            txtGiaban.setText("");
+            txtDvt.setText("");
+            txtSoLuong.setText("");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -542,6 +546,11 @@ public class NhapHangGUI extends javax.swing.JFrame {
             modelNH.setValueAt(cbNsx.getSelectedItem(), row, 5);
             modelNH.setValueAt(cbIdloai.getSelectedItem(), row, 6);
             checkTongtien();
+            txtId.setText("");
+            txtName.setText("");
+            txtGiaban.setText("");
+            txtDvt.setText("");
+            txtSoLuong.setText("");
 
         } catch (Exception e) {
             e.printStackTrace();
