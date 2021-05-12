@@ -15,6 +15,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Random;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -44,6 +45,11 @@ public class NhapHangGUI extends javax.swing.JFrame {
     private TableRowSorter<TableModel> rowSorter;
     private SanPhamBUS spBUS = new SanPhamBUS();
     double tongtien = 0;
+    Date date = Calendar.getInstance().getTime();
+    DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
+    DateFormat timeFormat = new SimpleDateFormat("hh:mm:ss");
+    String strDate = dateFormat.format(date);
+    String strTime = timeFormat.format(date);
 
     public NhapHangGUI() {
         initComponents();
@@ -167,7 +173,6 @@ public class NhapHangGUI extends javax.swing.JFrame {
         txtTongtien = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1200, 1200));
 
         jPanel1.setLayout(new java.awt.GridLayout(1, 2));
 
@@ -222,6 +227,11 @@ public class NhapHangGUI extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tableSanpham.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableSanphamMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tableSanpham);
 
         tableNhapHang.setModel(new javax.swing.table.DefaultTableModel(
@@ -306,30 +316,31 @@ public class NhapHangGUI extends javax.swing.JFrame {
                 .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jLabel11)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtTongtien, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel9))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 100, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel10)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jScrollPane2))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(btnXoa, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(btnSua, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(btnThemSP, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE))
-                                .addGap(148, 148, 148)
-                                .addComponent(btnNhaphang)))))
+                            .addComponent(jLabel9)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(44, 44, 44)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(btnXoa, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnSua, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnThemSP, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(148, 148, 148)
+                        .addComponent(btnNhaphang)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 100, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel10)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jScrollPane2)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel11)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtTongtien, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(29, 29, 29))
         );
         layout.setVerticalGroup(
@@ -348,20 +359,22 @@ public class NhapHangGUI extends javax.swing.JFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel11)
-                    .addComponent(txtTongtien, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnNhaphang)
-                    .addComponent(btnThemSP))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnSua)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnXoa)
-                .addContainerGap(117, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel11)
+                            .addComponent(txtTongtien, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(20, 20, 20)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnNhaphang)
+                            .addComponent(btnThemSP))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnSua)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnXoa)))
+                .addContainerGap(219, Short.MAX_VALUE))
         );
 
         pack();
@@ -373,32 +386,22 @@ public class NhapHangGUI extends javax.swing.JFrame {
 
     public void addCTNhap(int maNK) {
         try {
+            NhapKhoDTO cyn = new NhapKhoDTO(maNK, 1, strDate, strTime, "NV003", tongtien);
+            NhapKhoDAO nh = new NhapKhoDAO();
+            nh.add(cyn);
             for (int i = 0; i < tableNhapHang.getRowCount(); i++) {
                 String masp = getData(tableNhapHang, i, 0);
                 String tensp = getData(tableNhapHang, i, 1);
-                String sql_check_sp = "SELECT * FROM SANPHAM WHERE MASP='" + masp + "'";
 
-                String sql_check = "SELECT * FROM CT_NHAP WHERE MASP='" + masp + "'";
                 Double gia = Double.parseDouble(getData(tableNhapHang, i, 2));
                 int sl = Integer.parseInt(getData(tableNhapHang, i, 3));
                 String dvt = getData(tableNhapHang, i, 4);
                 String nsx = getData(tableNhapHang, i, 5);
                 String maloai = getData(tableNhapHang, i, 6);
                 Double thanhtien = gia * sl;
+                String sql_check_sp = "SELECT * FROM SANPHAM WHERE MASP='" + masp + "'";
                 ResultSet rs_sp = con.executeQuery(sql_check_sp);
-                ResultSet rs = con.executeQuery(sql_check);
-                if (!rs.next()) {
 
-                    String sql = "INSERT INTO CT_NHAP(MANK,MASP,DONGIA,SOLUONG,THANHTIEN) VALUES (";
-                    sql += "'" + maNK + "',";
-                    sql += "'" + masp + "',";
-                    sql += "'" + gia + "',";
-                    sql += "'" + sl + "',";
-                    sql += "'" + thanhtien + "')";
-                    con.executeUpdate(sql);
-                    System.out.println(sql);
-
-                }
                 if (!rs_sp.next()) {
                     String sql1 = "INSERT INTO SANPHAM (MASP,TENSP,GIABAN,SOLUONG,DVT,NSX,MALOAI,TINHTRANG) VALUES (";
                     sql1 += "'" + masp + "',";
@@ -412,17 +415,12 @@ public class NhapHangGUI extends javax.swing.JFrame {
                     con.executeUpdate(sql1);
                     System.out.println(sql1);
                 } else {
-//                    String sql = "UPDATE CT_NHAP SET ";
-//                    sql += "MANK='" + 1 + "', ";
-//                    sql += "MASP='" + masp + "', ";
-//                    sql += "DONGIA='" + gia + "', ";
-//                    sql += "SOLUONG='" + sl + "', ";
-//                    sql += "THANHTIEN='" + thanhtien + "'; ";
-//                    con.executeUpdate(sql);
+                    int sl_old = rs_sp.getInt("SOLUONG");
+                    int sl_new = sl + sl_old;
                     String sql1 = "UPDATE SANPHAM SET ";
                     sql1 += "TENSP=N'" + tensp + "', ";
                     sql1 += "GIABAN='" + gia + "', ";
-                    sql1 += "SOLUONG='" + sl + "', ";
+                    sql1 += "SOLUONG='" + sl_new + "', ";
                     sql1 += "DVT=N'" + dvt + "', ";
                     sql1 += "NSX=N'" + nsx + "', ";
                     sql1 += "MALOAI=N'" + maloai + "', ";
@@ -434,6 +432,25 @@ public class NhapHangGUI extends javax.swing.JFrame {
                 }
 
             }
+
+            for (int i = 0; i < tableNhapHang.getRowCount(); i++) {
+                String masp = getData(tableNhapHang, i, 0);
+                String tensp = getData(tableNhapHang, i, 1);
+                Double gia = Double.parseDouble(getData(tableNhapHang, i, 2));
+                int sl = Integer.parseInt(getData(tableNhapHang, i, 3));
+                String dvt = getData(tableNhapHang, i, 4);
+                String nsx = getData(tableNhapHang, i, 5);
+                String maloai = getData(tableNhapHang, i, 6);
+                Double thanhtien = gia * sl;
+                String sql = "INSERT INTO CT_NHAP(MANK,MASP,DONGIA,SOLUONG,THANHTIEN) VALUES (";
+                sql += "'" + maNK + "',";
+                sql += "'" + masp + "',";
+                sql += "'" + gia + "',";
+                sql += "'" + sl + "',";
+                sql += "'" + thanhtien + "')";
+                con.executeUpdate(sql);
+                System.out.println(sql);
+            }
         } catch (SQLException ex) {
             ex.printStackTrace();
 
@@ -442,23 +459,17 @@ public class NhapHangGUI extends javax.swing.JFrame {
     }
     private void btnNhaphangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNhaphangActionPerformed
         try {
+            if (tableNhapHang.getRowCount() > 0) {
+                int a = JOptionPane.showConfirmDialog(null, "Lưu nhập hàng ?");
+                if (a == 0) {
+                    addCTNhap(13);
+                    modelNH.setRowCount(0);
 
-            int a = JOptionPane.showConfirmDialog(null, "Lưu nhập hàng ?");
-            if (a == 0) {
-                int mank = 8;
-                addCTNhap(mank);
-                Date date = Calendar.getInstance().getTime();
-                DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
-                DateFormat timeFormat = new SimpleDateFormat("hh:mm:ss");
-                String strDate = dateFormat.format(date);
-                String strTime = timeFormat.format(date);
-                NhapKhoDTO cyn = new NhapKhoDTO(mank, 3, "2021-05-12", "10:22:22", "NV003", tongtien);
-                modelNH.setRowCount(0);
-                NhapKhoDAO nh = new NhapKhoDAO();
-                nh.add(cyn);
+                    JOptionPane.showConfirmDialog(null, "Hoàn tất");
 
-                JOptionPane.showConfirmDialog(null, "Hoàn tất");
-
+                }
+            } else {
+                JOptionPane.showConfirmDialog(null, "Chưa có sản phẩm sản phẩm!");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -472,7 +483,6 @@ public class NhapHangGUI extends javax.swing.JFrame {
     private void btnThemSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemSPActionPerformed
         try {
             addNhapHang();
-            //addCTNhap();
             checkTongtien();
         } catch (Exception e) {
             e.printStackTrace();
@@ -487,6 +497,7 @@ public class NhapHangGUI extends javax.swing.JFrame {
         int i = JOptionPane.showConfirmDialog(null, "Xác nhận xóa", "Alert", JOptionPane.YES_NO_OPTION);
         if (i == 0) {
             modelNH.removeRow(tableNhapHang.getSelectedRow());
+            checkTongtien();
 
         }
     }//GEN-LAST:event_btnXoaActionPerformed
@@ -513,6 +524,7 @@ public class NhapHangGUI extends javax.swing.JFrame {
             modelNH.setValueAt(txtDvt.getText(), row, 4);
             modelNH.setValueAt(cbNsx.getSelectedItem(), row, 5);
             modelNH.setValueAt(cbIdloai.getSelectedItem(), row, 6);
+            checkTongtien();
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -521,20 +533,36 @@ public class NhapHangGUI extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnSuaActionPerformed
     void checkTongtien() {
-        try {
-            if (tableNhapHang.getRowCount() > 0) {
-                tongtien = tongtien + Double.parseDouble(txtGiaban.getText());
-                txtTongtien.setText(String.valueOf(tongtien));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+
+        //if (tableNhapHang.getRowCount() > 0) {
+        for (int i = 0; i < tableNhapHang.getRowCount(); i++) {
+            Double gia = Double.parseDouble(getData(tableNhapHang, i, 2));
+            Double sl = Double.parseDouble(getData(tableNhapHang, i, 3));
+            tongtien = tongtien + (sl * gia);
+            System.out.println(gia);
+            System.out.println(sl);
+            txtTongtien.setText(String.valueOf(tongtien));
         }
 
+        // } else {
+        //   tongtien = 0;
+        //}
     }
     private void txtTongtienPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_txtTongtienPropertyChange
 
 
     }//GEN-LAST:event_txtTongtienPropertyChange
+
+    private void tableSanphamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableSanphamMouseClicked
+        int row = tableSanpham.getSelectedRow();
+        txtId.setText(getData(tableSanpham, row, 0));
+        txtName.setText(getData(tableSanpham, row, 1));
+        txtSoLuong.setText(getData(tableSanpham, row, 3));
+        txtGiaban.setText(getData(tableSanpham, row, 2));
+        txtDvt.setText(getData(tableSanpham, row, 4));
+        cbNsx.setSelectedItem(getData(tableSanpham, row, 5));
+        cbIdloai.setSelectedItem(getData(tableSanpham, row, 6));
+    }//GEN-LAST:event_tableSanphamMouseClicked
 
     /**
      * @param args the command line arguments
