@@ -2,6 +2,7 @@
 package GUI;
 
 import BUS.*;
+
 import DAO.*;
 import DTO.*;
 
@@ -25,7 +26,6 @@ import javax.swing.event.DocumentListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
-import net.proteanit.sql.DbUtils;
 
 public class mainFrame extends javax.swing.JFrame {
 
@@ -50,14 +50,13 @@ public class mainFrame extends javax.swing.JFrame {
     public void RowSearch() {
         rowSorter = new TableRowSorter<>(tableSP.getModel());
         tableSP.setRowSorter(rowSorter);
-        String re = "^[^<>{}\"/|;:.,~!?@#$%^=&*\\]\\\\()\\[¿§«»ω⊙¤°℃℉€¥£¢¡®©0-9_+/n/s]*$";
         txtSearch.getDocument().addDocumentListener(new DocumentListener() {
 
             @Override
             public void insertUpdate(DocumentEvent e) {
                 String text = txtSearch.getText();
 
-                if (text.trim().length() == 0 && text.trim().matches(re)) {
+                if (text.trim().length() == 0) {
                     rowSorter.setRowFilter(null);
                 } else {
                     rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
@@ -68,7 +67,7 @@ public class mainFrame extends javax.swing.JFrame {
             public void removeUpdate(DocumentEvent e) {
                 String text = txtSearch.getText();
 
-                if (text.trim().length() == 0 && text.trim().matches(re)) {
+                if (text.trim().length() == 0) {
                     rowSorter.setRowFilter(null);
                 } else {
                     rowSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
@@ -89,9 +88,15 @@ public class mainFrame extends javax.swing.JFrame {
         }
         sp = spBUS.getList();
         model.setRowCount(0);
+        String s1="haha";
+        for (SanPhamDTO s : sp) {
+           s1=s.getMaSP();
+        }
+        s1.split("SP00",1);
+        System.out.print(s1.split("SP",1));
         loadSanPham(sp);
     }
-
+    
     public void loadSanPham(ArrayList<SanPhamDTO> sp) {
         Vector data;
         model.setRowCount(0);
@@ -107,7 +112,7 @@ public class mainFrame extends javax.swing.JFrame {
             model.addRow(data);
         }
         tableSP.setModel(model);
-
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -143,7 +148,7 @@ public class mainFrame extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
-
+        
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         txtSearch.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -337,6 +342,7 @@ public class mainFrame extends javax.swing.JFrame {
             spBUS.delete(idcanxoa);
             tableSP.clearSelection();
             loadSanPham(sp);
+            
 
         }
     }//GEN-LAST:event_btnXoaActionPerformed
@@ -403,11 +409,7 @@ public class mainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnsuaActionPerformed
 
     private void txtSearchKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyPressed
-       if(evt.getKeyCode()==KeyEvent.VK_ENTER ||evt.getKeyCode()==KeyEvent.VK_CAPS_LOCK||evt.getKeyCode()==KeyEvent.VK_SHIFT||evt.getKeyCode()==KeyEvent.VK_ALT){         
-           txtSearch.setText("");
-       }
-       else RowSearch();
-       
+        RowSearch();
 
     }//GEN-LAST:event_txtSearchKeyPressed
 

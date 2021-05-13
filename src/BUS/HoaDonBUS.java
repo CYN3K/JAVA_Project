@@ -10,7 +10,13 @@ import DAO.SqlServerConnect;
 import DTO.HoaDonDTO;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -47,7 +53,39 @@ public class HoaDonBUS {
             }
         }
     }
-    
+    public boolean checkTime(Date from,Date to,Date time)
+    {
+//        System.err.print(from.getTime()+" ");
+//        System.err.print(to.getTime()+" ");
+//        System.err.println(time.getTime());
+        if(time.after(from) && time.before(to))
+        {
+            return true;
+        }
+        return false;
+    }
+    public ArrayList<HoaDonDTO> ListTime(Date from,Date to)
+    {
+        ArrayList<HoaDonDTO> list = new ArrayList<>();
+        DateFormat dateformat= new SimpleDateFormat("yyyy-MM-dd");
+        for(HoaDonDTO hd : listCTXuat)
+        {
+            Date dates = from;
+			try {
+				dates = dateformat.parse(hd.getNgayLap());
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			};
+			if(!dates.equals(null)) {
+            if(checkTime(from, to, dates))
+            {
+                list.add(hd);
+            }
+			}
+        }
+        return list;
+    }
     public void set(HoaDonDTO s)
     {
         for(int i = 0 ; i < listCTXuat.size() ; i++)

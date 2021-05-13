@@ -13,7 +13,7 @@ import java.sql.*;
  */
 public class SqlServerConnect {
 
-    private String url = "jdbc:sqlserver://localhost:1433;DatabaseName=QLST";
+    private String url = "jdbc:sqlserver://localhost:1433;DatabaseName=qlst";
     private Connection conn = null;
     private Statement st = null;
     private PreparedStatement pst = null;

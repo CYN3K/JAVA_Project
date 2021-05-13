@@ -3,12 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/ADMIN/Desktop/JAVA_Project/src/DAO/CTNhapDAO.java</file>
-            <file>file:/C:/Users/ADMIN/Desktop/JAVA_Project/src/GUI/mainFrame.java</file>
-            <file>file:/C:/Users/ADMIN/Desktop/JAVA_Project/src/GUI/NhapHangGUI.java</file>
-            <file>file:/C:/Users/ADMIN/Desktop/JAVA_Project/src/DAO/NhapKhoDAO.java</file>
-            <file>file:/C:/Users/ADMIN/Desktop/JAVA_Project/src/DTO/NhapKhoDTO.java</file>
-            <file>file:/C:/Users/ADMIN/Desktop/JAVA_Project/src/DTO/CTNhapDTO.java</file>
+            <file>file:/C:/Users/ADMIN/Downloads/Compressed/projectjava/sa/src/DAO/KhachHangDAO.java</file>
+            <file>file:/C:/Users/ADMIN/Downloads/Compressed/projectjava/sa/src/GUI/KhachHangGUI.java</file>
+            <file>file:/C:/Users/ADMIN/Downloads/Compressed/projectjava/sa/src/GUI/qlst.java</file>
+            <file>file:/C:/Users/ADMIN/Downloads/Compressed/projectjava/sa/src/BUS/KhachHangBUS.java</file>
         </group>
     </open-files>
 </project-private>

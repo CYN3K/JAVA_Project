@@ -34,6 +34,12 @@ public class SanPhamBUS {
         SanPhamDAO.add(a);
     }
 
+    public void addTrung(SanPhamDTO a) throws SQLException {
+        SanPhamDAO SanPhamDAO = new SanPhamDAO();
+        SanPhamDAO.addTrung(a);
+        listSP.add(a);
+    }
+
     public void delete(String idNv) {
         for (SanPhamDTO i : listSP) {
             if (i.getMaSP().equals(idNv)) {
@@ -46,10 +52,8 @@ public class SanPhamBUS {
     }
 
     public void set(SanPhamDTO s) {
-        for(int i = 0 ; i < listSP.size() ; i++)
-        {
-            if(listSP.get(i).getMaSP().equals(s.getMaSP()))
-            {
+        for (int i = 0; i < listSP.size(); i++) {
+            if (listSP.get(i).getMaSP().equals(s.getMaSP())) {
                 listSP.set(i, s);
                 SanPhamDAO spDAO = new SanPhamDAO();
                 spDAO.set(s);
@@ -67,22 +71,27 @@ public class SanPhamBUS {
         return null;
     }
 
-    public ResultSet search1(String maNV) throws SQLException {
-        String sql = "select * from SANPHAM where MASP like'%" + maNV + "%'";
+    public ResultSet searchMA(String masp) throws SQLException {
+        String sql = "select * from SANPHAM where MASP like'%" + masp + "%'";
         ResultSet rs = con.executeQuery(sql);
         return rs;
     }
-    public boolean checkMasp(String masp)
-    {
-        for(SanPhamDTO sp : listSP)
-        {
-            if(sp.getMaSP().equals(masp))
-            {
+
+    public ResultSet searchTEN(String tensp) throws SQLException {
+        String sql = "select * from SANPHAM where TENSP like'%" + tensp + "%'";
+        ResultSet rs = con.executeQuery(sql);
+        return rs;
+    }
+
+    public boolean checkMasp(String masp) {
+        for (SanPhamDTO sp : listSP) {
+            if (sp.getMaSP().equals(masp)) {
                 return true;
             }
         }
         return false;
     }
+
     public ArrayList<String> getCTLoai(String ncc) {
         if (ncc.isEmpty()) {
             return null;
@@ -110,13 +119,15 @@ public class SanPhamBUS {
     public ArrayList<SanPhamDTO> getList() {
         return listSP;
     }
-    public void ExportExcelDatabase(){
+
+    public void ExportExcelDatabase() {
         SanPhamDAO spDAO = new SanPhamDAO();
         spDAO.ExportExcelDatabase();
     }
-    
-    public void ImportExcelDatabase(){
+
+    public void ImportExcelDatabase() {
         SanPhamDAO spDAO = new SanPhamDAO();
         spDAO.ImportExcelDatabase();
     }
+
 }

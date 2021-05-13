@@ -54,25 +54,27 @@ public class HoaDonDAO {
         return dshd;
     }
     public void add(HoaDonDTO hd) {   
-        String sql = "INSERT INTO HOADON VALUES (";
+    	 String sql1 = "SET IDENTITY_INSERT HOADON ON;";
+         String sql2 = "SET IDENTITY_INSERT HOADON OFF;";
+         String sql = "INSERT INTO HOADON ([MAHD], [NGAYLAP], [GIOLAP], [TONGTIEN], [CHIETKHAU],[THANHTOAN],[MAKM],[MANV],[MAKH]) VALUES  (";
                sql += "'"+hd.getMaHD()+"',";
-               sql += ""+hd.getMaKH()+",";
                sql += "'"+hd.getNgayLap().toString()+"',";
                sql += "'"+hd.getGioLap().toString()+"',";
-               sql += "'"+hd.getMaKM()+"',";
-               sql += ""+hd.getMaNV()+",";
                sql += "'"+hd.getTongtien()+"',";
                sql += "'"+hd.getChietkhau()+"',";
-               sql += "'"+hd.getThanhtoan()+"')";
-        con.executeUpdate(sql);
+               sql += "'"+hd.getThanhtoan()+"',";
+               sql += "'"+hd.getMaKM()+"',";
+               sql += "'"+hd.getMaNV()+"',";
+               sql += ""+hd.getMaKH()+")";
+               con.executeUpdate(sql1 + sql + sql2);
     }
     public void set(HoaDonDTO hd)
     {
         String sql = "UPDATE HOADON SET ";
             sql += "'"+hd.getMaHD()+"',";
                sql += ""+hd.getMaKH()+",";
-               sql += "'"+hd.getNgayLap().toString()+"',";
-               sql += "'"+hd.getGioLap().toString()+"',";
+               sql += "'"+hd.getNgayLap()+"',";
+               sql += "'"+hd.getGioLap()+"',";
                sql += "'"+hd.getMaKM()+"',";
                sql += ""+hd.getMaNV()+",";
                sql += "'"+hd.getTongtien()+"',";

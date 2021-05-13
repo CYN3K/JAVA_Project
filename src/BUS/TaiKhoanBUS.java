@@ -11,6 +11,7 @@ import DAO.SqlServerConnect;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -53,7 +54,15 @@ public class TaiKhoanBUS {
             }
         }
     }
-
+    public String check(String userName,char[] pass) {
+    	for (TaiKhoanDTO ct : listTK) {
+        	char[] Passtrue = ct.getPass().toCharArray();
+            if (ct.getUsername().equals(userName) && Arrays.equals(pass,Passtrue) && ct.getEnable()==1) {
+                return ct.getQuyen();
+            }
+        }
+        return "";
+    }
     public TaiKhoanDTO search(int maNV) {
         for (TaiKhoanDTO ct : listTK) {
             if (ct.getId()==(maNV)) {
@@ -62,6 +71,7 @@ public class TaiKhoanBUS {
         }
         return null;
     }
+    
 
     public void search1(int maNV) throws SQLException {
         String sql = "select * from TAIKHOAN where ID like'%" + maNV + "%'";

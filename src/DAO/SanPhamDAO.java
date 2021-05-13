@@ -6,6 +6,7 @@
 package DAO;
 
 import DTO.SanPhamDTO;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -36,8 +37,7 @@ public class SanPhamDAO {
     public ArrayList<SanPhamDTO> list() {
         ArrayList<SanPhamDTO> dssp = new ArrayList<>();
         try {
-
-            String sql = "SELECT * FROM SANPHAM";
+            String sql = "SELECT * FROM SANPHAM WHERE TINHTRANG=1";
             ResultSet rs = con.executeQuery(sql);
             while (rs.next()) {
 
@@ -70,28 +70,60 @@ public class SanPhamDAO {
         sql += "'" + a.getSoluong() + "',";
         sql += "N'" + a.getDvt() + "',";
         sql += "N'" + a.getNsx() + "',";
-        sql += "'" + a.getMaloai() + "')";
+        sql += "'" + a.getMaloai() + "',";
+        sql += "'1')";
+        System.out.println(sql);
         con.executeUpdate(sql);
+
+    }
+
+    public void addTrung(SanPhamDTO a) {
+        try {
+            String sql_check_sp = "SELECT * FROM sanpham WHERE TINHTRANG=0";
+            ResultSet rs = con.executeQuery(sql_check_sp);
+            while (rs.next()) {
+                String masp_cu = rs.getString("MASP");
+                System.out.println(masp_cu);
+                if (!masp_cu.equals(a.getTenSP())) {
+                    String sql = "UPDATE SANPHAM SET ";
+                    sql += "TENSP=N'" + a.getTenSP() + "' ,";
+                    sql += "GIABAN='" + a.getGiaban() + "', ";
+                    sql += "SOLUONG='" + a.getSoluong() + "', ";
+                    sql += "DVT=N'" + a.getDvt() + "' ,";
+                    sql += "NSX=N'" + a.getNsx() + "', ";
+                    sql += "MALOAI=N'" + a.getMaloai() + "', ";
+                    sql += "TINHTRANG='1'";
+                    sql += " WHERE MASP='" + a.getMaSP() + "'";
+                    System.out.println(sql);
+                    con.executeUpdate(sql);
+                }
+
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(SanPhamDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }
 
     public void set(SanPhamDTO a) {
 
         String sql = "UPDATE SANPHAM SET ";
-        sql += "MASP='" + a.getMaSP() + "', ";
-        sql += "TENSP='" + a.getTenSP() + "' ,";
+        sql += "TENSP=N'" + a.getTenSP() + "' ,";
         sql += "GIABAN='" + a.getGiaban() + "', ";
         sql += "SOLUONG='" + a.getSoluong() + "', ";
-        sql += "DVT='" + a.getDvt() + "' ,";
-        sql += "NSX='" + a.getNsx() + "', ";
-        sql += "MALOAI='" + a.getMaloai() + "' ";
+        sql += "DVT=N'" + a.getDvt() + "' ,";
+        sql += "NSX=N'" + a.getNsx() + "', ";
+        sql += "MALOAI=N'" + a.getMaloai() + "', ";
+        sql += "TINHTRANG='1'";
         sql += " WHERE MASP='" + a.getMaSP() + "'";
+        System.out.println(sql);
         con.executeUpdate(sql);
     }
 
     public void delete(String a) {
-        String sql = "DELETE FROM SANPHAM WHERE MASP='" + a + "'";  
-        con.executeQuery(sql);
+        String sql = "UPDATE SANPHAM SET TINHTRANG = 0 WHERE MASP='" + a + "'";
+        con.executeUpdate(sql);
         System.out.println(sql);
 
     }
@@ -99,7 +131,7 @@ public class SanPhamDAO {
     public void ExportExcelDatabase() {
         try {
 
-            String sql = "SELECT * FROM SANPHAM";
+            String sql = "SELECT * FROM SANPHAM WHERE TINHTRANG=1";
             ResultSet rs = con.executeQuery(sql);
             XSSFWorkbook workbook = new XSSFWorkbook();
             XSSFSheet sheet = workbook.createSheet("SanphamExcel");
@@ -183,6 +215,7 @@ public class SanPhamDAO {
                 FileOutputStream out = new FileOutputStream(ex);
                 out = new FileOutputStream(ex);
                 workbook.write(out);
+                JOptionPane.showMessageDialog(null,"Xuất thành công!");
                 out.close();
             }
 
@@ -227,16 +260,16 @@ public class SanPhamDAO {
 
                 String sql_check = "SELECT * FROM SANPHAM WHERE MASP='" + maSP + "'";
                 ResultSet rs = con.executeQuery(sql_check);
-                if (rs.next()) {                 
-                    String sql = "INSERT INTO SANPHAM VALUES (";
+                if (!rs.next()) {
+                    String sql = "INSERT INTO SANPHAM (MASP,TENSP,GIABAN,SOLUONG,DVT,NSX,MALOAI,TINHTRANG)VALUES (";
                     sql += "'" + maSP + "',";
                     sql += "N'" + tenSP + "',";
                     sql += "'" + gia + "',";
                     sql += "'" + sl + "',";
                     sql += "N'" + dvt + "',";
                     sql += "N'" + nsx + "',";
-                    sql += "'" + maloai + "');";
-                    System.out.println(sql);
+                    sql += "'" + maloai + "',";
+                    sql += "'1')";
                     con.executeUpdate(sql);
                 } else {
                     String sql = "UPDATE SANPHAM SET ";
@@ -245,20 +278,21 @@ public class SanPhamDAO {
                     sql += "SOLUONG='" + sl + "', ";
                     sql += "DVT=N'" + dvt + "', ";
                     sql += "NSX=N'" + nsx + "', ";
-                    sql += "MALOAI=N'" + maloai + "' ";
+                    sql += "MALOAI=N'" + maloai + "', ";
+                    sql += "TINHTRANG='1'";
                     sql += "WHERE MASP='" + maSP + "';";
-                    System.out.println(sql);
                     con.executeUpdate(sql);
                 }
             }
+            JOptionPane.showMessageDialog(null,"Thêm thành công!");
             in.close();
 
         } catch (FileNotFoundException ex) {
             Logger.getLogger(SanPhamDAO.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException | SQLException ex) {
             Logger.getLogger(SanPhamDAO.class.getName()).log(Level.SEVERE, null, ex);
-                    
+
         }
+        
     }
-  
 }

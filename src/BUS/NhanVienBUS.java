@@ -6,6 +6,7 @@
 package BUS;
 
 import DTO.NhanVienDTO;
+
 import DAO.NhanVienDAO;
 import DAO.SqlServerConnect;
 import java.sql.ResultSet;
@@ -20,9 +21,9 @@ public class NhanVienBUS {
     }
     ArrayList<NhanVienDTO> listNV;
     private SqlServerConnect con = new SqlServerConnect();
-
+    NhanVienDAO NhanVienDAO = new NhanVienDAO();
     public void list() {
-        NhanVienDAO NhanVienDAO = new NhanVienDAO();
+        
         listNV = new ArrayList<>();
         listNV = NhanVienDAO.list();
     }
@@ -43,14 +44,19 @@ public class NhanVienBUS {
             }
         }
     }
-
-    public void set(NhanVienDTO s) {
-        for (int i = 0; i < listNV.size(); i++) {
-            if (listNV.get(i).getMaNV().equals(s.getMaNV())) {
-                listNV.set(i, s);
-                return;
+    public boolean checkManv(String manv)
+    {
+        for(NhanVienDTO nv : listNV)
+        {
+            if(nv.getMaNV().equals(manv))
+            {
+                return true;
             }
         }
+        return false;
+    }
+    public void set(NhanVienDTO s) {
+    	NhanVienDAO.set(s);
     }
 
     public NhanVienDTO search(String maHD) {
@@ -62,8 +68,18 @@ public class NhanVienBUS {
         return null;
     }
 
-    public void search1(String maHD) throws SQLException {
+    public void searchMa(String maHD) throws SQLException {
         String sql = "select * from NHANVIEN where MANV like'%" + maHD + "%'";
+        ResultSet rs = con.executeQuery(sql);
+
+    }
+    public void searchTen(String maHD) throws SQLException {
+        String sql = "select * from NHANVIEN where TENNV like'%" + maHD + "%'";
+        ResultSet rs = con.executeQuery(sql);
+
+    }
+        public void searchMucLuong(String maHD) throws SQLException {
+        String sql = "select * from NHANVIEN where LUONG like'%" + maHD + "%'";
         ResultSet rs = con.executeQuery(sql);
 
     }
