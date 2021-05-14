@@ -21,9 +21,10 @@ public class TaiKhoanBUS {
     }
     ArrayList<TaiKhoanDTO> listTK;
     private SqlServerConnect con = new SqlServerConnect();
+    TaiKhoanDAO TaiKhoanDAO = new TaiKhoanDAO();
 
     public void list() {
-        TaiKhoanDAO TaiKhoanDAO = new TaiKhoanDAO();
+       
         listTK = new ArrayList<>();
         listTK = TaiKhoanDAO.list();
     }
@@ -34,25 +35,24 @@ public class TaiKhoanBUS {
         TaiKhoanDAO.add(a);
     }
 
-    public void delete(int idNv) {
+    public void delete(String username) {
         for (TaiKhoanDTO i : listTK) {
-            if (i.getId()==(idNv)) {
+            if (i.getUsername().equals(username)) {
                 listTK.remove(i);
                 TaiKhoanDAO TaiKhoanDAO = new TaiKhoanDAO();
-                TaiKhoanDAO.delete(idNv);
+                TaiKhoanDAO.delete(i.getId());
                 return;
             }
         }
     }
 
     public void set(TaiKhoanDTO s) {
-        for (int i = 0; i < listTK.size(); i++) {
-            if (listTK.get(i).getId()==(s.getId())) {
-                listTK
-                        .set(i, s);
-                return;
-            }
-        }
+        try {
+			TaiKhoanDAO.set(s);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
     public String check(String userName,char[] pass) {
     	for (TaiKhoanDTO ct : listTK) {

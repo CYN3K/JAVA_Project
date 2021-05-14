@@ -68,18 +68,8 @@ public class NhanVienBUS {
         return null;
     }
 
-    public void searchMa(String maHD) throws SQLException {
+    public void search1(String maHD) throws SQLException {
         String sql = "select * from NHANVIEN where MANV like'%" + maHD + "%'";
-        ResultSet rs = con.executeQuery(sql);
-
-    }
-    public void searchTen(String maHD) throws SQLException {
-        String sql = "select * from NHANVIEN where TENNV like'%" + maHD + "%'";
-        ResultSet rs = con.executeQuery(sql);
-
-    }
-        public void searchMucLuong(String maHD) throws SQLException {
-        String sql = "select * from NHANVIEN where LUONG like'%" + maHD + "%'";
         ResultSet rs = con.executeQuery(sql);
 
     }

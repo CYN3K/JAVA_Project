@@ -247,6 +247,11 @@ public class ThongKeGUI extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        
+        tbTKSP.setDefaultEditor(Object.class, null);
+        tbTKKH.setDefaultEditor(Object.class, null);
+        tbTKNV.setDefaultEditor(Object.class, null);
+        
         jButton2.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		list_tksp(hdlist);

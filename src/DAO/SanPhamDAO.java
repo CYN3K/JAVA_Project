@@ -253,7 +253,7 @@ public class SanPhamDAO {
                 String tenSP = row.getCell(1).getStringCellValue();
 
                 int gia = (int) row.getCell(2).getNumericCellValue();
-                int sl = (int) row.getCell(3).getNumericCellValue();
+                int sl_nhap = (int) row.getCell(3).getNumericCellValue();
                 String dvt = row.getCell(4).getStringCellValue();
                 String nsx = row.getCell(5).getStringCellValue();
                 String maloai = row.getCell(6).getStringCellValue();
@@ -265,7 +265,7 @@ public class SanPhamDAO {
                     sql += "'" + maSP + "',";
                     sql += "N'" + tenSP + "',";
                     sql += "'" + gia + "',";
-                    sql += "'" + sl + "',";
+                    sql += "'" + sl_nhap + "',";
                     sql += "N'" + dvt + "',";
                     sql += "N'" + nsx + "',";
                     sql += "'" + maloai + "',";
@@ -275,12 +275,12 @@ public class SanPhamDAO {
                     String sql = "UPDATE SANPHAM SET ";
                     sql += "TENSP=N'" + tenSP + "', ";
                     sql += "GIABAN='" + gia + "', ";
-                    sql += "SOLUONG='" + sl + "', ";
+                    sql += "SOLUONG='" + sl_nhap + "', ";
                     sql += "DVT=N'" + dvt + "', ";
                     sql += "NSX=N'" + nsx + "', ";
                     sql += "MALOAI=N'" + maloai + "', ";
                     sql += "TINHTRANG='1'";
-                    sql += "WHERE MASP='" + maSP + "';";
+                    sql += "WHERE MASP='" + maSP + "' OR MASP='"+maSP+1+ "';";
                     con.executeUpdate(sql);
                 }
             }

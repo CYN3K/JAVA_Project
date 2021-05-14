@@ -57,11 +57,10 @@ public class TaiKhoanDAO {
         String sql1 = "SET IDENTITY_INSERT TAIKHOAN ON;";
         String sql2 = "SET IDENTITY_INSERT TAIKHOAN OFF;";
         String sql = "UPDATE TAIKHOAN SET ";
-        sql += "ID='" + user.getId() + "', ";
         sql += "USERNAME  ='" + user.getUsername() + "', ";
         sql += "PASS='" + user.getPass() + "' ,";
         sql += "QUYEN='" + user.getQuyen() + "' ,";
-        sql += "ENABLE='" + user.getEnable() + "' ";
+        sql += "ENABLE='1' ";
         sql += " WHERE ID='" + user.getId() + "'";
         con.executeUpdate(sql1);      
         con.executeUpdate(sql);
@@ -78,15 +77,16 @@ public class TaiKhoanDAO {
         sql += "'" + user.getUsername() + "',";
         sql += "'" + user.getPass() + "',";
         sql += "'" + user.getQuyen() + "',";
-        sql += "'" + user.getEnable() + "')";
+        sql += "'1')";
 
         con.executeUpdate(sql1 + sql + sql2);
 
     }
 
-    public void delete(int usererID) {
-        String sql = "DELETE FROM TAIKHOAN WHERE ID='" + usererID + "'";
+    public void delete(int idNv) {
+        String sql = "UPDATE TAIKHOAN SET ENABLE = 0 WHERE ID='" + idNv + "'";
         con.executeUpdate(sql);
+        System.out.println(sql);
 
     }
 

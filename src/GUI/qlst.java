@@ -88,9 +88,11 @@ public class qlst extends JFrame implements MouseListener {
         header hmain = new header(DEFAULT_WIDTH,40);
         hmain.setBackground(new Color(27, 27, 30));
         if(username != null)
-        {
-            if(role.equals("AD")) username = "Admin";
-            JLabel user = new JLabel("Chào, "+username);
+        {	
+        	JLabel user = new JLabel("Chào, "+username);
+            if(role.equals("AD")) {
+            user = new JLabel("Chào, "+"ADMIN");
+            }
             user.setFont(font);
             user.setForeground(Color.WHITE);
             user.setBounds(new Rectangle(DEFAULT_WIDTH-350,-7,150,50));
@@ -139,12 +141,13 @@ public class qlst extends JFrame implements MouseListener {
         menubar.setBackground(new Color(55, 63, 81));
         menubar.setPreferredSize(new Dimension(DEFAULT_WIDTH,100));
         menu.add("Bán hàng");
-        menu.add("Quản lý Sản Phẩm");
-        menu.add("Quản lý Khách Hàng");
-        menu.add("Quản lý hóa đơn");
+        menu.add("Nhập Hàng");
+        menu.add("Sản Phẩm");
+        menu.add("Khách Hàng");
+        menu.add("hóa đơn");
         //if(role.equals("AD") ) {
-        menu.add("Quản lý nhân viên");
-        menu.add("Quản lý tài khoản");
+        menu.add("nhân viên");
+        menu.add("tài khoản");
         menu.add("Thống kê");
         //}
         out();
@@ -185,21 +188,35 @@ public class qlst extends JFrame implements MouseListener {
     		
     	switch(c) {
     	
+    	case 1:{
+    		main.removeAll();
+            main.add(new NhapHangGUI());
+            main.repaint();
+            main.revalidate();
+            break;
+    	}
     	case 2:{
+    		main.removeAll();
+            main.add(new SanPhamGUI());
+            main.repaint();
+            main.revalidate();
+            break;
+    	}
+    	case 3:{
     		main.removeAll();
             main.add(new KhachHangGUI());
             main.repaint();
             main.revalidate();
             break;
     	}
-    	case 3:{
+    	case 4:{
     			main.removeAll();
                 main.add(new HoaDonGUI());
                 main.repaint();
                 main.revalidate();
                 break;
     	}
-    	case 4:{
+    	case 5:{
     		main.removeAll();
             main.add(new NhanVienGUI());
             main.repaint();
@@ -207,12 +224,20 @@ public class qlst extends JFrame implements MouseListener {
             break;
     	}
     	case 6:{
+    		main.removeAll();
+            main.add(new TaiKhoanGUI(this.username));
+            main.repaint();
+            main.revalidate();
+            break;
+    	}
+    	case 7:{
 			main.removeAll();
             main.add(new ThongKeGUI());
             main.repaint();
             main.revalidate();
             break;
 	}
+    	
     	default:{
     		main.removeAll();
             main.add(new BanHangGUI(this.username));
@@ -232,7 +257,7 @@ public class qlst extends JFrame implements MouseListener {
         for(int i = 0 ; i < menu.size() ; i++)
         {
            String s = menu.get(i);
-           option.add(new item(s, new Rectangle(200*i+50,40,200,50),null,null));
+           option.add(new item(s, new Rectangle(DEFAULT_WIDTH/menu.size()*i,40,150,50),null,null));
            option.get(i).addMouseListener(this);
         }
         
@@ -247,7 +272,7 @@ public class qlst extends JFrame implements MouseListener {
         	for(int i = 0 ; i < menu.size() ; i++)
             {
                String s = menu.get(i);
-               option.add(new item(s, new Rectangle(DEFAULT_WIDTH/menu.size()*i,40,200,50),null,null));
+               option.add(new item(s, new Rectangle(DEFAULT_WIDTH/menu.size()*i,40,150,50),null,null));
                option.get(i).addMouseListener(this);
             }
             

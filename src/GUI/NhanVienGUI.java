@@ -36,6 +36,7 @@ public class NhanVienGUI extends javax.swing.JPanel implements ActionListener {
     private NhanVienBUS nvBUS = new NhanVienBUS();
     private TableRowSorter<TableModel> rowSorter;
     ArrayList<NhanVienDTO> nv;
+    String manvend;
 
     /**
      * Creates new form NhanVienGUI
@@ -43,9 +44,24 @@ public class NhanVienGUI extends javax.swing.JPanel implements ActionListener {
     public NhanVienGUI() {
         initComponents();
         tableNV.getModel();
+        tableNV.setDefaultEditor(Object.class, null);
         listNV();
+        getmanvend();
+        tfmanv.setText(manvend);
     }
-
+    public void getmanvend() {
+    	String manv = null;
+    	int ma;
+    	for(NhanVienDTO s : nv) {
+    		manv=s.getMaNV();
+    	}
+    	String[] split = new String[3];
+    	split=manv.split("0");
+    	ma=Integer.parseInt(split[2]);
+    	ma++;
+    	manvend="NV00"+String.valueOf(ma);
+    	//System.out.print(manvend);
+    }
     public void listNV() {
         if (nvBUS.getList() == null) {
             nvBUS.list();
@@ -53,6 +69,8 @@ public class NhanVienGUI extends javax.swing.JPanel implements ActionListener {
         nv = nvBUS.getList();
         model.setRowCount(0);
         loadNhanVien(nv);
+       
+        
     }
 
     public void loadNhanVien(ArrayList<NhanVienDTO> nv) {
@@ -133,8 +151,7 @@ public class NhanVienGUI extends javax.swing.JPanel implements ActionListener {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         btnreset = new javax.swing.JButton();
-        cbxtk = new javax.swing.JComboBox<>();
-
+        tfmanv.setEnabled(false);;
         setPreferredSize(new java.awt.Dimension(1500, 650));
 
         tableNV.setAutoCreateRowSorter(true);
@@ -147,6 +164,7 @@ public class NhanVienGUI extends javax.swing.JPanel implements ActionListener {
                 "Mã NV", "Tên NV", "Ngày Sinh", "Địa Chỉ", "Số Điện Thoại", "Mức Lương"
             }
         ));
+        tableNV.setDefaultEditor(Object.class, null);
         tableNV.setPreferredSize(new java.awt.Dimension(1000, 300));
         tableNV.setRowHeight(25);
         tableNV.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -226,8 +244,6 @@ public class NhanVienGUI extends javax.swing.JPanel implements ActionListener {
             }
         });
 
-        cbxtk.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        cbxtk.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mã NV", "Tên NV", "Mức Lương" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -262,7 +278,7 @@ public class NhanVienGUI extends javax.swing.JPanel implements ActionListener {
                                     .addComponent(tfsdt, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(tfdiachi, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(cbxtk, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                               
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(tftimkiem, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(27, 27, 27)
@@ -304,8 +320,7 @@ public class NhanVienGUI extends javax.swing.JPanel implements ActionListener {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btntim, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tftimkiem, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnreset, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbxtk, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnreset, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(41, 41, 41)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -317,6 +332,7 @@ public class NhanVienGUI extends javax.swing.JPanel implements ActionListener {
     }//GEN-LAST:event_tfmanvActionPerformed
 
     private void btnthemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnthemActionPerformed
+    	if(tfmanv.getText().equals(manvend)) {
         String id = tfmanv.getText();
         String name = tftennv.getText();
         String ns = tfnsinh.getText();
@@ -332,9 +348,21 @@ public class NhanVienGUI extends javax.swing.JPanel implements ActionListener {
         try {
             nvBUS.add(nv1);
             loadNhanVien(nv);
+            getmanvend();
+            tfmanv.setText(manvend);
         } catch (SQLException ex) {
             Logger.getLogger(NhanVienGUI.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null,"vui lòng điền đầy đủ thông tin");
         }
+    	}
+    	else {
+    		tfmanv.setText(manvend);
+            tftennv.setText("");
+            tfnsinh.setText("");
+            tfdiachi.setText("");
+            tfsdt.setText("");
+            tfluong.setText("");
+    	}
         
     }//GEN-LAST:event_btnthemActionPerformed
 
@@ -351,7 +379,7 @@ public class NhanVienGUI extends javax.swing.JPanel implements ActionListener {
     private void btnxoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnxoaActionPerformed
         
         int row = tableNV.getSelectedRow();
-        String idcanxoa = String.valueOf(tableNV.getModel().getValueAt(row, 0));
+        String idcanxoa = String.valueOf(tableNV.getValueAt(row, 0));
         System.out.println(idcanxoa);
         int i = JOptionPane.showConfirmDialog(null, "Xác nhận xóa", "Alert", JOptionPane.YES_NO_OPTION);
         if (i == 0) {
@@ -406,7 +434,6 @@ public class NhanVienGUI extends javax.swing.JPanel implements ActionListener {
     private javax.swing.JButton btnthem;
     private javax.swing.JButton btntim;
     private javax.swing.JButton btnxoa;
-    private javax.swing.JComboBox<String> cbxtk;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

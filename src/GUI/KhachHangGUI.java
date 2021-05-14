@@ -1,5 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
+re * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
@@ -32,6 +32,7 @@ public class KhachHangGUI extends javax.swing.JPanel {
     private KhachHangBUS khBUS = new KhachHangBUS();
     private TableRowSorter<TableModel> rowSorter;
     ArrayList<KhachHangDTO> kh;
+    int makhend;
 
     /**
      * Creates new form KhachHangGUI
@@ -39,9 +40,13 @@ public class KhachHangGUI extends javax.swing.JPanel {
     public KhachHangGUI() {
         initComponents();
         tableKH.getModel();
-        listKH();
-    }
+        tableKH.setDefaultEditor(Object.class, null);
 
+        listKH();
+        getmakhend();
+        tfmakh.setText(String.valueOf(makhend));
+    }
+    
     public void listKH() {
         if (khBUS.getList() == null) {
             khBUS.list();
@@ -50,7 +55,16 @@ public class KhachHangGUI extends javax.swing.JPanel {
         model.setRowCount(0);
         loadKhachHang(kh);
     }
-
+    public void getmakhend() {
+    	
+    	int ma = 0;
+    	for(KhachHangDTO s : kh) {
+    		ma=s.getMaKH();
+    	}
+    	
+    	ma++;
+    	makhend=ma;
+    }
     public void loadKhachHang(ArrayList<KhachHangDTO> nv) {
         Vector data;
         model.setRowCount(0);
@@ -123,7 +137,8 @@ public class KhachHangGUI extends javax.swing.JPanel {
         tableKH = new javax.swing.JTable();
         btnxoa = new javax.swing.JButton();
         btnreset = new javax.swing.JButton();
-        cbxtk = new javax.swing.JComboBox<>();
+        tfmakh.setEnabled(false);
+        
 
         setPreferredSize(new java.awt.Dimension(1500, 650));
 
@@ -182,6 +197,7 @@ public class KhachHangGUI extends javax.swing.JPanel {
                     "Mã KH", "Tên KH", "Số Điện Thoại", "Điểm Tích Lũy"
                 }
         ));
+        tableKH.setDefaultEditor(Object.class, null);
         tableKH.setPreferredSize(new java.awt.Dimension(1000, 300));
         tableKH.setRowHeight(25);
         tableKH.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -207,8 +223,7 @@ public class KhachHangGUI extends javax.swing.JPanel {
             }
         });
 
-        cbxtk.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        cbxtk.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{"Mã KH", "Điểm Tích Lũy"}));
+        
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -239,7 +254,6 @@ public class KhachHangGUI extends javax.swing.JPanel {
                                                                         .addComponent(tfdiem, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                                         .addComponent(tfsdt, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                                         .addGroup(layout.createSequentialGroup()
-                                                                .addComponent(cbxtk, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                                 .addGap(32, 32, 32)
                                                                 .addComponent(tftimkiem, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -280,8 +294,7 @@ public class KhachHangGUI extends javax.swing.JPanel {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(btntim, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(tftimkiem, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(btnreset, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(cbxtk, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(btnreset, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(41, 41, 41)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addContainerGap())
@@ -297,18 +310,29 @@ public class KhachHangGUI extends javax.swing.JPanel {
     }//GEN-LAST:event_tfmakhActionPerformed
 
     private void btnthemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnthemActionPerformed
+    	if(Integer.parseInt(tfmakh.getText())==makhend) {
         int id = Integer.parseInt(tfmakh.getText());
         String name = tftenkh.getText();
         String sdt = tfsdt.getText();
         int diem = Integer.parseInt(tfdiem.getText());
-        //(int maKH, int dtl, String tenKH, String sdt)       
+        //(int maKH, int dtl, String tenKH, String sdt)
         try {
             KhachHangDTO kh1 = new KhachHangDTO(id, diem, name, sdt);
             khBUS.add(kh1);
             loadKhachHang(kh);
+            getmakhend();
+            tfmakh.setText(String.valueOf(makhend));
         } catch (SQLException ex) {
             Logger.getLogger(KhachHangGUI.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null,"vui lòng điền đầy đủ thông tin");
         }
+    	}
+    	else {
+    		tfmakh.setText(String.valueOf(makhend));
+    		tftenkh.setText("");
+    		tfsdt.setText("");
+    		tfdiem.getText();
+    	}
 
 //        if (nvBUS.checkMakh(id)) {
 //            JOptionPane.showMessageDialog(null, "Mã khách hàng đă tồn tại !!!");
@@ -372,7 +396,6 @@ public class KhachHangGUI extends javax.swing.JPanel {
     private javax.swing.JButton btnthem;
     private javax.swing.JButton btntim;
     private javax.swing.JButton btnxoa;
-    private javax.swing.JComboBox<String> cbxtk;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
